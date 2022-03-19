@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/16 16:00:46 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/18 16:33:09 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define WINDOW_HEIGHT 1080
 # define MLX_ERROR 1 
 
-# include <X11/keysym.h>
+//# include <X11/X.h>
 # include <math.h>
 # include "mlx.h"
 # include "libft.h"
@@ -36,9 +36,10 @@ typedef struct s_coord
 
 typedef struct s_map
 {
-	int row;
-	int col;
-}		t_map;
+	int 	row;
+	int 	col;
+	char	**plan;
+}			t_map;
 
 /*-----------*INIT*------------*/
 

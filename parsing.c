@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/16 18:05:57 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:12:47 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 void	ft_mlx_destroy(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->ptr, mlx->win);
-	mlx_destroy_display(mlx->ptr);
+	//mlx_destroy_image(mlx->ptr);
 	free(mlx->ptr);
 }
 
@@ -57,9 +57,9 @@ int handle_no_event(void *mlx)
 }
 
 // Si la touche symbole correspond bien a ESC, je ferme la fenetre.
-int	handle_input(int keysym, t_mlx *mlx)
+int	handle_input(int keycode, t_mlx *mlx)
 {
-	if (keysym == XK_Escape)
+	if (keycode == 53)
 		mlx_destroy_window(mlx->ptr, mlx->win);
 	return (0);
 }
@@ -78,120 +78,133 @@ int ft_mlx_init(t_mlx *mlx)
 	return (0);
 }
 
-static char	**tab_init(t_map *map)
+void	tab_init(t_map *map)
 {
-	char	**tab;
-	printf("MAP->ROW = %i\n", map->row);
-	tab = malloc(sizeof(char *) * (map->row + 1));
-	if (!tab)
-		return (free(tab), NULL);
-	return (tab);
+	map->plan = malloc(sizeof(int *) * map->row + 1);
+	if (!map->plan)
+		free(map->plan);
 }
 
-/*size_t	data_count(char const *s, char c)
+void	line_counter(char **av, t_map *map)
 {
-	size_t	i;
+	char buf[1];
+	int ret = 1;
+	int fd;
+	
+	fd = open(av[1], O_RDONLY);
+	map->row = 0;
+    while (ret != 0) 
+	{
+		ret = read(fd, buf, 1);
+        if (buf[0] == '\n') 
+        	map->row++;
+    }
+	close(fd);
+}
 
-	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	return (i);
-}*/
-
-int	data_count(char const *s, char c)
+void data_count(char const *s, char c, t_map *map)
 {
 	int	i;
-	int	word;
-
+	
 	i = 0;
-	word = 0;
+	if (!s)
+		return ;
 	while (s[i])
 	{
 		if (s[i] != c)
 		{
-			word++;
+			map->col++;
 			while (s[i] != c && s[i])
 				i++;
 		}
 		while (s[i] == c && s[i])
 			i++;
 	}
-	return (word);
 }
 
 // J'initialise mon tableau de hauteur 
 
 void	save_map(char *line, t_map *map)
 {
-	char		**plan;
 	char		**line_data;
 	size_t		i = 0;
 	size_t		j = 0;
-	size_t		data = 0;
-	static int	line_no = 1;
-	size_t		limit;
+	int			data = 0;
+	static int	line_no = 0;
 	
-	plan = tab_init(map);
+	data_count(line, ' ', map);
 	line_data = ft_split(line, ' ');
-	if (!plan || !line_data)
-		return ;
-	limit = data_count(line, ' ');
-	printf("LIMIT = %zu\n", limit);
-	while (i < limit)
+	/*while(i < (size_t)map->row)
 	{
-		j = 0;
-		plan[line_no] = malloc(sizeof(char) * 2 );
-		while (line_data[i][j])
+		j= 0;
+		printf("NO. %zu\n", i);
+		while(j < limit)
 		{
-			plan[line_no][data] = line_data[i][j];
-			j++; 
-			data++;
+			printf("LINE_DATA[%zu][%zu] = %c\n", i, j, line_data[i][j]);
+			j++;
 		}
 		i++;
+	}*/
+	if (!map->plan || !line_data)
+		return ;
+	while (i < (size_t)map->col)
+	{
+		j = 0;
+		map->plan[line_no] = malloc(sizeof(int) * (map->col + 1));
+		map->plan[line_no][data] = ft_atoi(&line_data[i][j]);
+		j++;
+		data++; 
+		i++;
 	}
-	if (line_no == 14)
-		plan[line_no] = 0;
-	plan[line_no][data] = 0;
-	i = 0;
-	printf("plan[0][%zu] = %s\n", i, plan[i]);
+	if (line_no == map->row + 1)
+		map->plan[line_no] = 0;
+	map->plan[line_no][data] = '\0';
 }
+
 
 // Je compte le nb de ligne de ma map 
 
 void	read_map(char **av, t_map *map)
 {
 	int fd = 0;
+	int i = 0;
+	int j = 0;
 	char *line = NULL;
-	
+
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return ;
-	map->row = -1;
-	while (line != NULL || map->row == -1)
+	line_counter(av, map);
+	tab_init(map);
+	while (i < map->row)
 	{
 		line = get_next_line(fd);
 		save_map(line, map);
 		free(line);
-		map->row++;
+		i++;
 	}
-	printf("how many lines = %d\n", map->row);
-	printf("ICI -----> %d", map->row);
+	i = 0;
+	j = 0;
+	while (i < map->row)
+	{
+		j = 0;
+		while(j < map->col)
+		{
+			printf("MAP->PLAN[%d][%d] = %d", i ,j, map->plan[i][j]);
+			j++;
+		}
+		i++;
+	}
+	
 }
 
 int	main(int ac, char **av)
 {
-	//int		fd;
-	//void	*mlx_ptr;
-	//void	*win_ptr;
-	//t_mlx	mlx;
-	//t_data	img;
-	//int 	i = 0;
-	//int		j;
 	t_map	map;
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-
+	
 	/*if (ft_mlx_init(&mlx) == MLX_ERROR)
 		return (0);
 	
