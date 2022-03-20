@@ -13,6 +13,7 @@ LFLAGS		=	-I./libft -lft -L./libft -I./mlx -L./mlx
 LIBFT		=	./libft/libft.a
 
 SRCS		=	parsing.c \
+				scanning.c \
 
 OBJS		= 	$(SRCS:.c=.o)
 
