@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/20 06:14:23 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/20 20:34:28 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_input(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-void drawing(t_mlx *mlx, int x, int y, int color)
+void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	char	*s;
 
@@ -56,19 +56,38 @@ void drawing(t_mlx *mlx, int x, int y, int color)
 	
 }
 
-void	print(t_mlx *mlx, t_map *map, int x, int y)
+void	drawing(t_mlx *mlx, t_map *map)
 {
-	printf("MAP->ROW = %d\n", map->row);
-	while(x < 100)
-		drawing(mlx, x++, y, (int)0xFF00FF0000);
-	while(y < 100)
-		drawing(mlx, x, y++, (int)0xFF00FF0000);
+	int distance_x;
+	int distance_y;
+	int x;
+	int y;
+	int p;
+	
+	distance_x = (map->x + 100) - map->x;
+	distance_y = (map->y + 0) - map->y;
+	x = map->x;
+	y = map->y;
+	p = 2 * distance_y - distance_x;
+	while(x <= map->x + 100)
+	{
+		put_pixel(mlx, x, y, (int)0xFF00FF0000);
+		x++;
+		if (p < 0)
+			p = p + 2 * distance_y - 2;
+		else
+		{
+			p = p + 2 * distance_y - 2 * distance_x;
+			y++;
+		}
+	}
 }
+
 
 int ft_mlx_init(t_mlx *mlx, t_map *map)
 {
-	int x = 0;
-	int y = 0;
+	//int x = 0;
+	//int y = 0;
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (MLX_ERROR);
@@ -85,7 +104,8 @@ int ft_mlx_init(t_mlx *mlx, t_map *map)
 	{
 		drawing(mlx, x++, y, 0x00FF0000);
 	}*/
-	print(mlx, map, x, y);
+	//print(mlx, map, x, y);
+	drawing(mlx, map);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 	mlx_loop_hook(mlx->ptr, &handle_no_event, &mlx);
 	mlx_key_hook(mlx->win, &handle_input, &mlx);
@@ -115,10 +135,13 @@ int	main(int ac, char **av)
 		}
 		i++;
 	}
+	map.x = 10;
+	map.y = 10;
 	ft_mlx_init(&mlx, &map);
 	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 		return (0);
-	drawing(&mlx, 100, 100, 0x00FF0000);
+	
+	//drawing(&mlx, 100, 100, 0x00FF0000);
 	//mlx_loop_hook(mlx.ptr, &drawing, &mlx);
 	//mlx.img = mlx_new_image(mlx.ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	

@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/20 06:08:08 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/20 18:29:50 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include "mlx.h"
 # include "libft.h"
 
-typedef struct s_coord
+/*typedef struct s_coord
 {
-	char	x;
-	char	y;
-}			t_coord;
+	int		x;
+	int		y;
+}			t_coord;*/
 
 typedef struct s_mlx
 {
@@ -38,7 +38,7 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	t_coord	*point;
+	
 }			t_mlx;
 typedef struct s_map
 {
@@ -46,6 +46,8 @@ typedef struct s_map
 	int 	col;
 	int		fil;
 	int		**plan;
+	int		x;
+	int		y;
 }			t_map;
 
 /*-----------*INIT*------------*/
