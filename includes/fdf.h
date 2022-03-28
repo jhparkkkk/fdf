@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/20 18:29:50 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/28 04:06:44 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,20 @@ typedef struct s_mlx
 	int		endian;
 	
 }			t_mlx;
+
 typedef struct s_map
 {
 	int 	row;
 	int 	col;
 	int		fil;
 	int		**plan;
-	int		x;
-	int		y;
 }			t_map;
+
+typedef struct s_point
+{
+	float	x;
+	float	y;
+}		t_point;
 
 /*-----------*INIT*------------*/
 
