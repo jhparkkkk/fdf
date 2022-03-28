@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/28 04:19:54 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/28 19:12:38 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,79 +55,66 @@ void	put_pixel(t_mlx *mlx, float x, float y, int color)
 	
 }
 
-void	point_init(t_point *point, int height)
+void	put_height(t_map *map, int x, int y)
 {
-	
-	point->x = (point->x - point->y) * cos(0.523599);
-	point->y = (point->x + point->y) * sin(0.523599) - height;
+	x = (x - y) * cos(0.523599);
+	y = (x + y) * sin(0.523599) - map->plan[y][x];
 }	
 
-void draw_line(t_mlx *mlx, t_point *a, t_point *b, int height)  
+void draw_line(t_mlx *mlx, float x0, float y0, float x1, float y1)  
 {
-	printf("HEIGHT = %d\n", height);
-	if (height)
-	{
-		point_init(a, height);
-		point_init(b, height);
-	}
-	int dx =  fabs(b->x - a->x), sx = a->x < b->x ? 1 : -1;
-	int dy = -fabs(b->y - a->y), sy = a->y <b->y ? 1 : -1; 
+	int dx =  fabs(x1-x0), sx = x0<x1 ? 1 : -1;
+	int dy = -fabs(y1-y0), sy = y0<y1 ? 1 : -1; 
 	int err = dx+dy, e2; /* error value e_xy */
 	
 	for(;;){  /* loop */
-      put_pixel(mlx, a->x,a->y, 0xFF0000);
-      if (a->x==b->x && a->y==b->y) break;
+      put_pixel(mlx, x0,y0, 0xFF0000);
+      if (x0==x1 && y0==y1) break;
       e2 = 2*err;
-      if (e2 >= dy) { err += dy; a->x += sx; } /* e_xy+e_x > 0 */
-      if (e2 <= dx) { err += dx; a->y += sy; } /* e_xy+e_y < 0 */
+      if (e2 >= dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
+      if (e2 <= dx) { err += dx; y0 += sy; } /* e_xy+e_y < 0 */
    }
 }
 
 void	draw_map(t_mlx *mlx, t_map *map)
 {
-	int i = -1;
-	int j = -1;
-	t_point a;
-	t_point b;
-	a.x = 10;
-	a.y = 10;
-	b.x = 20;
-	b.y = 10;
+	int i = 0;
+	int j = 0;
+	float x0 = WINDOW_WIDTH / 3; //10;
+	float y0= WINDOW_HEIGHT / 3; //10;
+	float x1 = 20;
+	float y1 = 10;
 	int tmp_x = 0;
 	int tmp_y = 0;
 
 	printf("\ncolumns = %d\n", map->col);
 	printf("\nrow = %d\n", map->row);
-	//draw_line(mlx, x0, y0, x1, y1);
-	while (++i < map->row)
+	while (i <= map->row)
 	{
-		draw_line(mlx, &a, &b, map->plan[i][j]);
 		j = -1;
-		while(++j < map->col)
+		while(j++ < map->col - 1)
 		{
-			draw_line(mlx, &a, &b, map->plan[i][j]); // vers la droite
-			tmp_x = b.x;                    
-			tmp_y = b.y;
-			b.x = a.x + 0;
-			b.y = a.y + 10;
-			draw_line(mlx, &a, &b, map->plan[i][j]); // vers le bas
-			b.x = tmp_x + 10;
-			b.y = tmp_y + 0;
-			a.x = tmp_x;
-			a.y = tmp_y;
-			//if (j == map->col)
-			//	draw_line(map, mlx, x0, y0, x1 - 10, y1 + 10, i, j);
+			draw_line(mlx, x0, y0, x1, y1); // vers la droite / lignes horizontales
+			tmp_x = x1;                    
+			tmp_y = y1;
+			x1 = x0 + 0;
+			y1 = y0 + 10;
+			if (j == map->col - 1 && y0 <= 10 * map->row )
+				draw_line(mlx, tmp_x, tmp_y, x1 + 10, y1);
+			if (i != map->row)
+				draw_line(mlx, x0, y0, x1, y1); // vers le bas / lignes verticales 
+			x1 = tmp_x + 10;
+			y1 = tmp_y + 0;
+			x0 = tmp_x;
+			y0 = tmp_y;
 		}
-		a.x = 10;
-		b.x = a.x + 10;
-		a.y = tmp_y + 10;
-		b.y = a.y + 0;
-		//if (i == map->row)
-		//	draw_line(map, mlx, x0, y0, x0 * map->row * 2, y1, i, j);
+		x0 = 10;
+		x1 = x0 + 10;
+		y0 = tmp_y + 10;
+		y1 = y0 + 0;
+		i++;
 	}
 }
-  
-
 
 
 
@@ -154,14 +141,14 @@ int ft_mlx_init(t_mlx *mlx, t_map *map)
 
 int	main(int ac, char **av)
 {
-	//int i = 0;
-	//int j = 0;
+	int i = 0;
+	int j = 0;
 	t_map	map;
 	t_mlx	mlx;
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-	/*while(i < map.row)
+	while(i < map.row)
 	{
 		j = 0;
 		printf("\n");
@@ -171,7 +158,7 @@ int	main(int ac, char **av)
 			j++;
 		}
 		i++;
-	}*/
+	}
 	ft_mlx_init(&mlx, &map);
 	//if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 	//	return (0);

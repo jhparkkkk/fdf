@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/28 04:06:44 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/03/28 18:20:38 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_point
 {
 	float	x;
 	float	y;
+	float	z;
 }		t_point;
 
 /*-----------*INIT*------------*/
