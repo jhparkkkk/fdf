@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/28 19:12:38 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/01 05:29:54 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 // j'initialise la minilibx --> il s'agit d'un pointeur sur une structure
 //contenant tous les outils graphiques dont j'ai besoin.
-
-
 void	ft_mlx_destroy(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->ptr, mlx->win);
@@ -55,71 +53,143 @@ void	put_pixel(t_mlx *mlx, float x, float y, int color)
 	
 }
 
+
+
+void draw_line(t_mlx *mlx, t_point *a, t_point *b)  
+{
+	float x = a->x;
+	float y = a->y;
+	int dx =  fabs(b->x - a->x), sx = a->x < b->x ? 1 : -1;
+	int dy = -fabs(b->y - a->y), sy = a->y < b->y ? 1 : -1; 
+	int err = dx+dy, e2; /* error value e_xy */
+	
+	while (1)
+	{
+		put_pixel(mlx, x, y, 0xFF0000);
+		if (x == b->x && y == b->y) 
+			break;
+		e2 = 2 * err;
+      	if (e2 >= dy)
+	  	{
+			  err += dy;
+			  x += sx; 
+		} /* e_xy+e_x > 0 */
+    	if (e2 <= dx) 
+	  	{
+			  err += dx;
+			  y += sy;
+		} /* e_xy+e_y < 0 */
+   }
+}
+
 void	put_height(t_map *map, int x, int y)
 {
 	x = (x - y) * cos(0.523599);
 	y = (x + y) * sin(0.523599) - map->plan[y][x];
-}	
-
-void draw_line(t_mlx *mlx, float x0, float y0, float x1, float y1)  
-{
-	int dx =  fabs(x1-x0), sx = x0<x1 ? 1 : -1;
-	int dy = -fabs(y1-y0), sy = y0<y1 ? 1 : -1; 
-	int err = dx+dy, e2; /* error value e_xy */
-	
-	for(;;){  /* loop */
-      put_pixel(mlx, x0,y0, 0xFF0000);
-      if (x0==x1 && y0==y1) break;
-      e2 = 2*err;
-      if (e2 >= dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
-      if (e2 <= dx) { err += dx; y0 += sy; } /* e_xy+e_y < 0 */
-   }
 }
 
-void	draw_map(t_mlx *mlx, t_map *map)
+void final_touch(t_mlx *mlx, t_point *tmp, t_point *b)
 {
-	int i = 0;
-	int j = 0;
-	float x0 = WINDOW_WIDTH / 3; //10;
-	float y0= WINDOW_HEIGHT / 3; //10;
-	float x1 = 20;
-	float y1 = 10;
-	int tmp_x = 0;
-	int tmp_y = 0;
+	b->x += 10;
+	draw_line(mlx, tmp, b);
+	b->x -= 10;
+}
 
-	printf("\ncolumns = %d\n", map->col);
-	printf("\nrow = %d\n", map->row);
-	while (i <= map->row)
+void go_down(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	tmp->x = b->x;                    
+	tmp->y = b->y;
+	b->x = a->x + 0;
+	b->y = a->y + 10 ; // -z 
+}
+
+void	go_right(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	b->x = tmp->x + 10;
+	b->y = tmp->y;
+	a->x = tmp->x;
+	a->y = tmp->y;
+}
+
+void	next_row(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	a->x = WINDOW_WIDTH / 3;
+	b->x = a->x + 10;
+	a->y = tmp->y + 10;
+	b->y = a->y + 0;
+}
+
+/*void final_touch(t_mlx *mlx, t_point *tmp, t_point *b)
+{
+	b->x += 10;
+	draw_line(mlx, tmp, b);
+	b->x -= 10;
+}
+
+void go_down(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	tmp->x = b->x;                    
+	tmp->y = b->y;
+	b->x = a->x + 0;
+	b->y = a->y + 10 ; // -z 
+}
+
+void	go_right(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	b->x = tmp->x + 10;
+	b->y = tmp->y;
+	a->x = tmp->x;
+	a->y = tmp->y;
+}
+
+void	next_row(t_point *tmp, t_point *a, t_point *b, int z)
+{
+	(void)z;
+	a->x = WINDOW_WIDTH / 3;
+	b->x = a->x + 10;
+	a->y = tmp->y + 10;
+	b->y = a->y + 0;
+}*/
+
+void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
+{
+	int i;
+	int j;
+	t_point tmp;
+
+	i = -1;
+	while (++i <= map->row)
 	{
-		j = -1;
-		while(j++ < map->col - 1)
+		j = 0;
+		while(j++ < map->col)
 		{
-			draw_line(mlx, x0, y0, x1, y1); // vers la droite / lignes horizontales
-			tmp_x = x1;                    
-			tmp_y = y1;
-			x1 = x0 + 0;
-			y1 = y0 + 10;
-			if (j == map->col - 1 && y0 <= 10 * map->row )
-				draw_line(mlx, tmp_x, tmp_y, x1 + 10, y1);
+			draw_line(mlx, a, b);
+			printf("WHERE AM I %d\n", map->plan[i][j]);
+			go_down(&tmp, a, b, map->plan[i][j]);
+			if (j == map->col && i < map->row)
+				final_touch(mlx, &tmp, b);
 			if (i != map->row)
-				draw_line(mlx, x0, y0, x1, y1); // vers le bas / lignes verticales 
-			x1 = tmp_x + 10;
-			y1 = tmp_y + 0;
-			x0 = tmp_x;
-			y0 = tmp_y;
+				draw_line(mlx, a, b);
+			go_right(&tmp, a, b, map->plan[i][j]);
 		}
-		x0 = 10;
-		x1 = x0 + 10;
-		y0 = tmp_y + 10;
-		y1 = y0 + 0;
-		i++;
+		next_row(&tmp, a, b, map->plan[i][j]);	
 	}
 }
 
+void	coord_init(t_point *a, t_point *b)
+{	
+	a->x = WINDOW_WIDTH / 3;
+	a->y = WINDOW_HEIGHT / 3;
+	b->x = a->x + 10;
+	b->y = a->y; // - z 
+}
 
-
-
-int ft_mlx_init(t_mlx *mlx, t_map *map)
+int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 {
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
@@ -129,7 +199,7 @@ int ft_mlx_init(t_mlx *mlx, t_map *map)
 		return (free(mlx->win), MLX_ERROR);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
-	draw_map(mlx, map);
+	draw_map(mlx, map, a, b);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 	mlx_loop_hook(mlx->ptr, &handle_no_event, &mlx);
 	mlx_key_hook(mlx->win, &handle_input, &mlx);
@@ -145,21 +215,24 @@ int	main(int ac, char **av)
 	int j = 0;
 	t_map	map;
 	t_mlx	mlx;
+	t_point	a;
+	t_point b;
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-	while(i < map.row)
+	while(i <= map.row)
 	{
 		j = 0;
 		printf("\n");
-		while(j < map.col)
+		while(j <= map.col)
 		{
-			printf("%d", map.plan[i][j]);
+			printf("%d ", map.plan[i][j]);
 			j++;
 		}
 		i++;
 	}
-	ft_mlx_init(&mlx, &map);
+	coord_init(&a, &b);
+	ft_mlx_init(&mlx, &map, &a, &b);
 	//if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 	//	return (0);
 	return (0);

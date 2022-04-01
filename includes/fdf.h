@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/28 18:20:38 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/01 02:37:45 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_point
 
 /*-----------*INIT*------------*/
 
-int		ft_mlx_init(t_mlx *mlx, t_map *map);
+int		ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
 void	read_map(char **av, t_map *map);
 
 

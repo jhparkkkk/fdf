@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/20 01:13:47 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/01 03:59:07 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int  line_counter(char **av, t_map *map)
 	int fd;
 	
 	fd = open(av[1], O_RDONLY);
-	map->row = 0;
+	map->row = -1;
     while (ret != 0) 
 	{
         if (buf[0] == '\n') 
@@ -36,7 +36,7 @@ static int  line_counter(char **av, t_map *map)
 
 static void tab_init(char **av, t_map *map)
 {
-	map->plan = (int **)malloc(sizeof(int *) * line_counter(av, map));
+	map->plan = (int **)malloc(sizeof(int *) * (line_counter(av, map) + 2));
 	if (!map->plan)
 		free(map->plan);	
 }
@@ -49,6 +49,7 @@ void column_counter(char const *s, char c, t_map *map)
 	i = 0;
 	if (!s)
 		return ;
+	map->col = -1;
 	while (s[i])
 	{
 		if (s[i] != c)
@@ -101,6 +102,7 @@ void	save_map(char *line, t_map *map)
     i = 0;
     j = 0;
 	line_data = ft_split(line, ' ');
+	printf("MAP->ROW = %d\n", map->row);
 	if (!map->plan || !line_data)
 		return ;
 	map->plan[map->fil] = malloc(sizeof(int) * (map->col + 1));
@@ -114,7 +116,7 @@ void	save_map(char *line, t_map *map)
 	}
 	free_data(line_data);
 	if (map->fil == map->row)
-		map->plan[map->fil] = 0;
+		map->plan[map->fil + 1] = 0;
 	map->plan[map->fil][j] = '\0';
 	map->fil++;
 }
@@ -134,7 +136,7 @@ void	read_map(char **av, t_map *map)
 	if (fd == -1)
 		return ;
 	map->fil = 0;
-	while (i < map->row)
+	while (i <= map->row)
 	{
 		line = get_next_line(fd);
 		if (i == 0)
