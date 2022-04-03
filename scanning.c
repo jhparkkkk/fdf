@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/03 05:10:52 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 07:07:45 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	save_map(char *line, t_map *map)
 	printf("MAP->ROW = %d\n", map->row);
 	if (!map->plan || !line_data)
 		return ;
-	map->plan[map->fil] = malloc(sizeof(int) * (map->col + 1));
+	map->plan[map->fil] = malloc(sizeof(int) * (map->col + 2));
     if (!map->plan[map->fil])
         free_plan(map->plan);
 	while (line_data[i])
@@ -115,7 +115,7 @@ void	save_map(char *line, t_map *map)
 		i++;
 	}
 	free_data(line_data);
-	if (map->fil == map->row)
+	if (map->fil == map->row - 1)
 		map->plan[map->fil + 1] = 0;
 	map->plan[map->fil][j] = '\0';
 	map->fil++;

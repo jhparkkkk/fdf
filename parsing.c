@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/03 05:53:42 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 07:36:32 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void final_touch(t_map *map, t_mlx *mlx, t_point *tmp, t_point *a, t_point *b)
 
 void	next_row(t_map *map, t_point *a, t_point *b, int i)
 {
-	printf(" I = %d\n", i);
-	i++;
+	
 	a->x = ((WINDOW_WIDTH / 3) - (i *(map->tile_width / 2)));
 	a->y = ((WINDOW_HEIGHT / 3) + (i *(map->tile_height / 2))); 
 	b->x = a->x + map->tile_width / 2;
@@ -147,6 +146,7 @@ void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 		j = 0;
 		while(j++ < map->col)
 		{
+			printf("\nI = %d | J = %d\n", i, j);
 			draw_line(mlx, a, b);
 			go_down(map, &tmp, a, b);
 			if (j == map->col && i < map->row)
@@ -155,7 +155,7 @@ void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 				draw_line(mlx, a, b);
 			go_right(map, &tmp, a, b);
 		}
-		next_row(map, a, b, i);	
+		next_row(map, a, b, i + 1);	
 	}
 }
 
@@ -198,12 +198,12 @@ int	main(int ac, char **av)
 	printf("COLUMNS = %d\n", map.col);
 	while(i <= map.row)
 	{
+		//printf("\nI = %d | J = %d\n", i, j);
 		j = 0;
 		printf("\n");
-		while(j <= map.col)
+		while(map.plan[i] && j++ < map.col)
 		{
 			printf("%d ", map.plan[i][j]);
-			j++;
 		}
 		i++;
 	}
