@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/03 04:57:08 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 05:07:33 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 
 int	main(int ac, char **av)
 {
-	//int i = 0;
-	//int j = 0;
+	int i = 0;
+	int j = 0;
 	t_map	map;
 	t_mlx	mlx;
 	t_point	a;
@@ -190,7 +190,8 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-	/*while(i <= map.row)
+	printf("COLUMNS = %d\n", map.col);
+	while(i <= map.row)
 	{
 		j = 0;
 		printf("\n");
@@ -200,7 +201,7 @@ int	main(int ac, char **av)
 			j++;
 		}
 		i++;
-	}*/
+	}
 	map.tile_width = 40;
 	map.tile_height = 20;
 	ft_mlx_init(&mlx, &map, &a, &b);

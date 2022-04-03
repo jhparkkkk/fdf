@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/01 03:59:07 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 05:10:52 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int  line_counter(char **av, t_map *map)
 	int fd;
 	
 	fd = open(av[1], O_RDONLY);
-	map->row = -1;
+	map->row = 0;
     while (ret != 0) 
 	{
         if (buf[0] == '\n') 
