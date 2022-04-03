@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/01 05:29:54 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 04:57:08 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,73 +95,47 @@ void final_touch(t_mlx *mlx, t_point *tmp, t_point *b)
 	b->x -= 10;
 }
 
-void go_down(t_point *tmp, t_point *a, t_point *b, int z)
+
+void	next_row(t_map *map, t_point *a, t_point *b, int i)
 {
-	(void)z;
-	tmp->x = b->x;                    
-	tmp->y = b->y;
-	b->x = a->x + 0;
-	b->y = a->y + 10 ; // -z 
+	a->x = ((WINDOW_WIDTH / 3) - (i*(map->tile_width / 2)));
+	a->y = ((WINDOW_HEIGHT / 3) + (i*(map->tile_height / 2))); 
+	b->x = a->x + map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2;
 }
 
-void	go_right(t_point *tmp, t_point *a, t_point *b, int z)
+void	coord_init(t_map *map, t_point *a, t_point *b)
+{	
+	a->x = WINDOW_WIDTH / 3;
+	a->y = WINDOW_HEIGHT / 3;
+	b->x = a->x + map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2;
+}
+
+
+void go_down(t_map *map, t_point *tmp, t_point *a, t_point *b)
 {
-	(void)z;
-	b->x = tmp->x + 10;
-	b->y = tmp->y;
+	tmp->x = b->x;                    
+	tmp->y = b->y;
+	b->x = a->x - map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2; 
+}
+
+void	go_right(t_map *map, t_point *tmp, t_point *a, t_point *b)
+{
+	b->x = a->x + map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2;
 	a->x = tmp->x;
 	a->y = tmp->y;
 }
-
-void	next_row(t_point *tmp, t_point *a, t_point *b, int z)
-{
-	(void)z;
-	a->x = WINDOW_WIDTH / 3;
-	b->x = a->x + 10;
-	a->y = tmp->y + 10;
-	b->y = a->y + 0;
-}
-
-/*void final_touch(t_mlx *mlx, t_point *tmp, t_point *b)
-{
-	b->x += 10;
-	draw_line(mlx, tmp, b);
-	b->x -= 10;
-}
-
-void go_down(t_point *tmp, t_point *a, t_point *b, int z)
-{
-	(void)z;
-	tmp->x = b->x;                    
-	tmp->y = b->y;
-	b->x = a->x + 0;
-	b->y = a->y + 10 ; // -z 
-}
-
-void	go_right(t_point *tmp, t_point *a, t_point *b, int z)
-{
-	(void)z;
-	b->x = tmp->x + 10;
-	b->y = tmp->y;
-	a->x = tmp->x;
-	a->y = tmp->y;
-}
-
-void	next_row(t_point *tmp, t_point *a, t_point *b, int z)
-{
-	(void)z;
-	a->x = WINDOW_WIDTH / 3;
-	b->x = a->x + 10;
-	a->y = tmp->y + 10;
-	b->y = a->y + 0;
-}*/
 
 void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 {
 	int i;
 	int j;
 	t_point tmp;
-
+	
+	coord_init(map, a, b);
 	i = -1;
 	while (++i <= map->row)
 	{
@@ -169,25 +143,18 @@ void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 		while(j++ < map->col)
 		{
 			draw_line(mlx, a, b);
-			printf("WHERE AM I %d\n", map->plan[i][j]);
-			go_down(&tmp, a, b, map->plan[i][j]);
-			if (j == map->col && i < map->row)
-				final_touch(mlx, &tmp, b);
+			go_down(map, &tmp, a, b);
+			//if (j == map->col && i < map->row)
+			//	final_touch(mlx, &tmp, b);
 			if (i != map->row)
 				draw_line(mlx, a, b);
-			go_right(&tmp, a, b, map->plan[i][j]);
+			go_right(map, &tmp, a, b);
 		}
-		next_row(&tmp, a, b, map->plan[i][j]);	
+		next_row(map, a, b, i);	
 	}
 }
 
-void	coord_init(t_point *a, t_point *b)
-{	
-	a->x = WINDOW_WIDTH / 3;
-	a->y = WINDOW_HEIGHT / 3;
-	b->x = a->x + 10;
-	b->y = a->y; // - z 
-}
+
 
 int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 {
@@ -199,7 +166,10 @@ int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 		return (free(mlx->win), MLX_ERROR);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
+	
+	//try(mlx, map, a, b);
 	draw_map(mlx, map, a, b);
+	
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 	mlx_loop_hook(mlx->ptr, &handle_no_event, &mlx);
 	mlx_key_hook(mlx->win, &handle_input, &mlx);
@@ -211,8 +181,8 @@ int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 
 int	main(int ac, char **av)
 {
-	int i = 0;
-	int j = 0;
+	//int i = 0;
+	//int j = 0;
 	t_map	map;
 	t_mlx	mlx;
 	t_point	a;
@@ -220,7 +190,7 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-	while(i <= map.row)
+	/*while(i <= map.row)
 	{
 		j = 0;
 		printf("\n");
@@ -230,8 +200,9 @@ int	main(int ac, char **av)
 			j++;
 		}
 		i++;
-	}
-	coord_init(&a, &b);
+	}*/
+	map.tile_width = 40;
+	map.tile_height = 20;
 	ft_mlx_init(&mlx, &map, &a, &b);
 	//if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 	//	return (0);

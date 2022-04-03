@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/01 02:37:45 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/02 21:07:06 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_map
 	int 	row;
 	int 	col;
 	int		fil;
+	int		tile_width;
+	int		tile_height;
 	int		**plan;
 }			t_map;
 
