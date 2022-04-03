@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/03 05:07:33 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/03 05:53:42 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,22 @@ void	put_height(t_map *map, int x, int y)
 	y = (x + y) * sin(0.523599) - map->plan[y][x];
 }
 
-void final_touch(t_mlx *mlx, t_point *tmp, t_point *b)
+void final_touch(t_map *map, t_mlx *mlx, t_point *tmp, t_point *a, t_point *b)
 {
-	b->x += 10;
+	b->x = tmp->x - map->tile_width / 2;
+	b->y = tmp->y + map->tile_height / 2;
 	draw_line(mlx, tmp, b);
-	b->x -= 10;
+	b->x = a->x - map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2; 
 }
 
 
 void	next_row(t_map *map, t_point *a, t_point *b, int i)
 {
-	a->x = ((WINDOW_WIDTH / 3) - (i*(map->tile_width / 2)));
-	a->y = ((WINDOW_HEIGHT / 3) + (i*(map->tile_height / 2))); 
+	printf(" I = %d\n", i);
+	i++;
+	a->x = ((WINDOW_WIDTH / 3) - (i *(map->tile_width / 2)));
+	a->y = ((WINDOW_HEIGHT / 3) + (i *(map->tile_height / 2))); 
 	b->x = a->x + map->tile_width / 2;
 	b->y = a->y + map->tile_height / 2;
 }
@@ -123,10 +127,11 @@ void go_down(t_map *map, t_point *tmp, t_point *a, t_point *b)
 
 void	go_right(t_map *map, t_point *tmp, t_point *a, t_point *b)
 {
-	b->x = a->x + map->tile_width / 2;
-	b->y = a->y + map->tile_height / 2;
 	a->x = tmp->x;
 	a->y = tmp->y;
+	b->x = a->x + map->tile_width / 2;
+	b->y = a->y + map->tile_height / 2;
+	
 }
 
 void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
@@ -144,8 +149,8 @@ void	draw_map(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 		{
 			draw_line(mlx, a, b);
 			go_down(map, &tmp, a, b);
-			//if (j == map->col && i < map->row)
-			//	final_touch(mlx, &tmp, b);
+			if (j == map->col && i < map->row)
+				final_touch(map, mlx, &tmp, a, b);
 			if (i != map->row)
 				draw_line(mlx, a, b);
 			go_right(map, &tmp, a, b);
