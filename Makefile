@@ -12,8 +12,10 @@ LFLAGS		=	-I./libft -lft -L./libft -I./mlx -L./mlx
 
 LIBFT		=	./libft/libft.a
 
-SRCS		=	parsing.c \
+SRCS		=	drawing.c \
 				scanning.c \
+				events.c \
+				window.c \
 
 OBJS		= 	$(SRCS:.c=.o)
 

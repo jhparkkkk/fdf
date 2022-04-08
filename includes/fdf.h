@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/02 21:07:06 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/08 08:03:27 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,14 @@ void	read_map(char **av, t_map *map);
 /*---------*DESTROY*-----------*/
 void	ft_mlx_destroy(t_mlx *mlx);
 
+/*---------*EVENTS*-----------*/
+int		handle_no_event(void *mlx);
+int		handle_input(int keycode, t_mlx *mlx);
+
+/*---------*DRAWING*-----------*/
+void	put_pixel(t_mlx *mlx, float x, float y, int color);
+void	draw_line(t_mlx *mlx, t_point *a, t_point *b);
+
+void	try(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
 
 #endif

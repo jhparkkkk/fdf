@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/03 07:07:45 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/08 08:16:54 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	save_map(char *line, t_map *map)
     i = 0;
     j = 0;
 	line_data = ft_split(line, ' ');
-	printf("MAP->ROW = %d\n", map->row);
 	if (!map->plan || !line_data)
 		return ;
 	map->plan[map->fil] = malloc(sizeof(int) * (map->col + 2));
