@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/09 19:11:39 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/09 19:30:40 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		handle_input(int keycode, t_mlx *mlx);
 /*---------*DRAWING*-----------*/
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 
-void	draw_line(t_mlx *mlx, int ax, int ay, int bx, int by) ; 
+void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by);  
 void	draw_map(t_map *map, t_mlx *mlx);
 
 void	try(t_mlx *mlx, t_map *map, t_point *a, t_point *b);

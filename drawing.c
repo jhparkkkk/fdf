@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/09 19:15:56 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/09 20:00:06 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	char	*pix;
 	
-	if ( x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT)
+	if ( x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT - 1)
 		return ; 
-	printf("x = %d | y = %d \n", x, y);
 	pix = mlx->addr + (y * mlx->size_line + x * (mlx->bits_per_pixel / 8));
 	*(int *)pix = color;
 	
 }
 
-void draw_line(t_mlx *mlx, int ax, int ay, int bx, int by)  
+void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
 {
 
-	int dx =  abs(bx - ax), sx = ax < bx ? 1 : -1;
-	int dy = -abs(by - ay), sy = ay < by ? 1 : -1; 
+	int dx =  fabs(bx - ax), sx = ax < bx ? 1 : -1;
+	int dy = -fabs(by - ay), sy = ay < by ? 1 : -1; 
 	int err = dx+dy, e2; /* error value e_xy */
 	while (1)
 	{
@@ -59,10 +58,11 @@ void draw_line(t_mlx *mlx, int ax, int ay, int bx, int by)
     float previous_x;
     float previous_y;
 
+	z *= 10;
     previous_x = *x;
     previous_y = *y;
-    *x = round((previous_x - previous_y) * cos(0.523599) * 20 + WINDOW_WIDTH / 2);
-    *y = round(-z + (previous_x + previous_y) * sin(0.523599) * 40 + WINDOW_HEIGHT / 3);
+    *x = round((previous_x - previous_y) * cos(0.523599) * 40 + WINDOW_WIDTH / 2);
+    *y = round(-z + (previous_x + previous_y) * sin(0.523599) * 20 + WINDOW_HEIGHT / 2);
 }
 
 void matrix_init(t_map *map)
@@ -111,18 +111,20 @@ void	draw_map(t_map *map, t_mlx *mlx)
 	int j = 0;
 	
 	printf("map.matrix[%d][%d].x = %f\n", i, j, map->matrix[i][j].x);
-	draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
-	/*while (i < map->row)
+	//draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
+	while (i < map->row)
 	{
 		j = 0;
 		while (j < map->col)
 		{
 			if (i + 1 < map->row)
 				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
+			if (j + 1 < map->col)
+				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j + 1].x, map->matrix[i][j + 1].y);
 			j++;
 		}
 		i++;
-	}*/
+	}
 }
 
 
