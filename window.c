@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/08 08:48:03 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/09 19:14:26 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	ft_mlx_destroy(t_mlx *mlx)
 	free(mlx->ptr);
 }
 
-int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
+int ft_mlx_init(t_mlx *mlx, t_map *map)
 {
+	(void)map;
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (MLX_ERROR);
@@ -33,11 +34,9 @@ int ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b)
 		return (free(mlx->win), MLX_ERROR);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
-	
-	try(mlx, map, a, b);
-	//draw_map(mlx, map, a, b);
-	
+	draw_map(map, mlx);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	
 	mlx_loop_hook(mlx->ptr, &handle_no_event, &mlx);
 	mlx_key_hook(mlx->win, &handle_input, &mlx);
 	mlx_loop(mlx->ptr);

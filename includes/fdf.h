@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/08 08:03:27 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/09 19:11:39 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ typedef struct s_mlx
 	
 }			t_mlx;
 
+typedef struct s_point
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_point;
+
 typedef struct s_map
 {
 	int 	row;
@@ -49,18 +56,11 @@ typedef struct s_map
 	int		tile_width;
 	int		tile_height;
 	int		**plan;
+	t_point	**matrix; 
 }			t_map;
-
-typedef struct s_point
-{
-	float	x;
-	float	y;
-	float	z;
-}		t_point;
-
 /*-----------*INIT*------------*/
 
-int		ft_mlx_init(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
+int ft_mlx_init(t_mlx *mlx, t_map *map);
 void	read_map(char **av, t_map *map);
 
 
@@ -72,8 +72,10 @@ int		handle_no_event(void *mlx);
 int		handle_input(int keycode, t_mlx *mlx);
 
 /*---------*DRAWING*-----------*/
-void	put_pixel(t_mlx *mlx, float x, float y, int color);
-void	draw_line(t_mlx *mlx, t_point *a, t_point *b);
+void	put_pixel(t_mlx *mlx, int x, int y, int color);
+
+void	draw_line(t_mlx *mlx, int ax, int ay, int bx, int by) ; 
+void	draw_map(t_map *map, t_mlx *mlx);
 
 void	try(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
 
