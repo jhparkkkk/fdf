@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/09 20:00:06 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/11 11:29:29 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,73 +53,19 @@ void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
 }
 
 
- void iso(float *x, float *y, float z)
-{
-    float previous_x;
-    float previous_y;
-
-	z *= 10;
-    previous_x = *x;
-    previous_y = *y;
-    *x = round((previous_x - previous_y) * cos(0.523599) * 40 + WINDOW_WIDTH / 2);
-    *y = round(-z + (previous_x + previous_y) * sin(0.523599) * 20 + WINDOW_HEIGHT / 2);
-}
-
-void matrix_init(t_map *map)
-{
-	int i; 
-	int j; 
-	map->matrix = (t_point **)malloc(sizeof(t_point *) * (map->row + 1));
-	i = 0;
-	while (i < map->row)
-	{
-		map->matrix[i] = malloc(sizeof(t_point) * (map->col + 1));
-		j = 0;
-		while (j <= map->col)
-		{
-			map->matrix[i][j].x = j;
-			map->matrix[i][j].y = i;
-			map->matrix[i][j].z = map->plan[i][j];
-			j++;
-		}
-		i++;
-	}
-}
-
-void matrix_iso(t_map *map)
-{
-	int i = 0;
-	int j = 0;
-	
-	while (i < map->row)
-	{
-		j = 0;
-		while (j <= map->col)
-		{
-			iso(&map->matrix[i][j].x, &map->matrix[i][j].y , map->matrix[i][j].z);
-			j++;
-		}
-		i++;
-	}
-}
-
-
-
 void	draw_map(t_map *map, t_mlx *mlx)
 {
 	int i = 0;
 	int j = 0;
 	
-	printf("map.matrix[%d][%d].x = %f\n", i, j, map->matrix[i][j].x);
-	//draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
 	while (i < map->row)
 	{
 		j = 0;
-		while (j < map->col)
+		while (j <= map->col)
 		{
 			if (i + 1 < map->row)
 				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
-			if (j + 1 < map->col)
+			if (j + 1 <= map->col)
 				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j + 1].x, map->matrix[i][j + 1].y);
 			j++;
 		}
@@ -141,7 +87,6 @@ int	main(int ac, char **av)
 	printf("COLUMNS = %d | LINES = %d\n", map.col, map.row);
 	while(i < map.row)
 	{
-		//printf("\nI = %d | J = %d\n", i, j);
 		j = 0;
 		printf("\n");
 		while(j <= map.col)
@@ -155,7 +100,6 @@ int	main(int ac, char **av)
 	i = 0;
 	while(i < map.row)
 	{
-		//printf("\nI = %d | J = %d\n", i, j);
 		j = 0;
 		while(j <= map.col)
 		{
@@ -169,8 +113,8 @@ int	main(int ac, char **av)
 	i = 0;
 	while(i < map.row)
 	{
-		//printf("\nI = %d | J = %d\n", i, j);
 		j = 0;
+		printf("\n");
 		while(j <= map.col)
 		{
 			printf("map.matrix[%d][%d].x = %f | .y = %f\n", i, j, map.matrix[i][j].x, map.matrix[i][j].y);

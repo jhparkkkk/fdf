@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/09 19:30:40 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/11 11:27:49 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_point
 	float	x;
 	float	y;
 	float	z;
+	int	color; 
 }			t_point;
 
 typedef struct s_map
@@ -70,6 +71,10 @@ void	ft_mlx_destroy(t_mlx *mlx);
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
 int		handle_input(int keycode, t_mlx *mlx);
+
+/*---------*MATRIX*-----------*/
+void	matrix_init(t_map *map);
+void	matrix_iso(t_map *map);
 
 /*---------*DRAWING*-----------*/
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
