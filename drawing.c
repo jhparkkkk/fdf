@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/11 11:29:29 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:44:32 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,32 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	
 }
 
+float f_abs(float nb)
+{
+	if (nb < 0)
+		return (nb *= -1);
+	return (nb);
+}
+
 void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
 {
+	float dx = f_abs(bx - ax); //, sx = ax < bx ? 1 : -1;
+	float dy = -f_abs(by - ay); //, sy = ay < by ? 1 : -1; 
+	int err = dx + dy, e2; /* error value e_xy */
+	
+	float sx = 0;
+	float sy = 0;
+	
+	if (ax < bx)
+		sx = 1;
+	else
+		sx = -1;
 
-	int dx =  fabs(bx - ax), sx = ax < bx ? 1 : -1;
-	int dy = -fabs(by - ay), sy = ay < by ? 1 : -1; 
-	int err = dx+dy, e2; /* error value e_xy */
+	if (ay < by)
+		sy = 1;
+	else
+		sy = -1;
+	
 	while (1)
 	{
 		put_pixel(mlx, ax, ay, 0xFF0000);

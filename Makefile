@@ -15,7 +15,6 @@ LIBFT		=	./libft/libft.a
 SRCS		=	matrix.c \
 				drawing.c \
 				scanning.c \
-				palette.c \
 				events.c \
 				window.c \
 				
