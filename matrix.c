@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/11 17:17:49 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/15 10:31:32 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int scale_x(t_map *map)
 {
 	int distance;
 	(void)map;
-	distance =  (WINDOW_WIDTH / 3 ) / 20;
+	distance = WINDOW_WIDTH / map->col / 2;
+	printf("distance x = %d\n", distance);
 	return (distance);	
 }
 
@@ -28,7 +29,8 @@ int scale_y(t_map *map)
 {
 	int distance;
 	(void)map;
-	distance = (WINDOW_HEIGHT / 3) / 20 ;
+	distance = WINDOW_HEIGHT / map->row / 2 ;
+	printf("distance y = %d\n", distance);
 	return (distance);	
 }
 
@@ -37,12 +39,13 @@ void iso(t_map *map, float *x, float *y, float z)
     float previous_x;
     float previous_y;
 
-	//z *= 10;
-    previous_x = *x;
-    previous_y = *y;
-    *x = round((previous_x - previous_y) * cos(0.523599) * scale_x(map) + WINDOW_WIDTH / 3); //WINDOW_WIDTH / map->col);
-    *y = round(-z + (previous_x + previous_y) * sin(0.523599) * scale_y(map) + WINDOW_HEIGHT / 3); //WINDOW_HEIGHT / map->row);
+	z *= 2;
+    previous_x = (*x * scale_x(map)) - ((map->col * scale_x(map)) / 2);
+    previous_y = (*y * scale_x(map)) - ((map->row * scale_x(map)) / 2);
+    *x = round((previous_x - previous_y) * cos(0.523599) + WINDOW_WIDTH / 2 );
+    *y = round(-z + (previous_x + previous_y) * sin(0.523599) + WINDOW_HEIGHT / 2); //WINDOW_HEIGHT / map->row);
 }
+
 
 void matrix_iso(t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/12 17:44:32 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/15 10:32:40 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,43 +34,47 @@ float f_abs(float nb)
 	return (nb);
 }
 
-void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
+void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
 {
-	float dx = f_abs(bx - ax); //, sx = ax < bx ? 1 : -1;
-	float dy = -f_abs(by - ay); //, sy = ay < by ? 1 : -1; 
-	int err = dx + dy, e2; /* error value e_xy */
-	
-	float sx = 0;
-	float sy = 0;
-	
 	if (ax < bx)
-		sx = 1;
+		sign->x = 1;
 	else
-		sx = -1;
+		sign->x = -1;
 
 	if (ay < by)
-		sy = 1;
+		sign->y = 1;
 	else
-		sy = -1;
+		sign->y = -1;
+}
+
+void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
+{
+	t_point distance;
+	t_point sign;
+	int		error[2];
 	
-	while (1)
+	distance.x = f_abs(bx - ax);
+	distance.y = -f_abs(by - ay);
+	error[0] = distance.x + distance.y;
+	find_sign(ax, ay, bx, by, &sign);
+	
+	while (ax != bx || ay != by)
 	{
-		put_pixel(mlx, ax, ay, 0xFF0000);
-		if (ax == bx && ay == by) 
-			break;
-		e2 = 2 * err;
-      	if (e2 >= dy)
+		put_pixel(mlx, ax, ay, 0xFFCCCC);
+		error[1] = 2 * error[0];
+      	if (error[1] > distance.y)
 	  	{
-			  err += dy;
-			  ax += sx; 
-		} /* e_xy+e_x > 0 */
-    	if (e2 <= dx) 
+			  error[0] += distance.y;
+			  ax += sign.x; 
+		} 
+    	if (error[1] < distance.x) 
 	  	{
-			  err += dx;
-			  ay += sy;
-		} /* e_xy+e_y < 0 */
+			  error[0] += distance.x;
+			  ay += sign.y;
+		}
    }
 }
+
 
 
 void	draw_map(t_map *map, t_mlx *mlx)
