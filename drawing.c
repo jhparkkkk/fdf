@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/15 10:32:40 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/15 17:15:35 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,61 +95,26 @@ void	draw_map(t_map *map, t_mlx *mlx)
 		}
 		i++;
 	}
+	//mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	//mlx_loop(mlx->ptr);
 }
 
 
 int	main(int ac, char **av)
 {
-	int i = 0;
-	int j = 0;
 	t_map	map;
 	t_mlx	mlx;
 
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
-	printf("COLUMNS = %d | LINES = %d\n", map.col, map.row);
-	while(i < map.row)
-	{
-		j = 0;
-		printf("\n");
-		while(j <= map.col)
-		{
-			printf("%d ", map.plan[i][j]);
-			j++;
-		}
-		i++;
-	}
 	matrix_init(&map);
-	i = 0;
-	while(i < map.row)
-	{
-		j = 0;
-		while(j <= map.col)
-		{
-			printf("\nmap.matrix[%d][%d].x = %f | .y = %f\n", i, j, map.matrix[i][j].x, map.matrix[i][j].y);
-			j++;
-		}
-		i++;
-	}
 	matrix_iso(&map);
-	//printf("map.matrix[i][j].x = %f\n", map.matrix[0][5].x);
-	i = 0;
-	while(i < map.row)
-	{
-		j = 0;
-		printf("\n");
-		while(j <= map.col)
-		{
-			printf("map.matrix[%d][%d].x = %f | .y = %f\n", i, j, map.matrix[i][j].x, map.matrix[i][j].y);
-			j++;
-		}
-		i++;
-	}
-	map.tile_width = 40;
-	map.tile_height = 20;
 	ft_mlx_init(&mlx, &map);
-	//if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
-	//	return (0);
+	//mlx_key_hook(mlx.win, &handle_input, &mlx);
+	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
+		return (0);
+	//draw_map(&map, &mlx);
+	//mlx_loop(mlx.ptr);
 	return (0);
 }
