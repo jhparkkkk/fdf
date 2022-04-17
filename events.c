@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:09:37 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:18:08 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int handle_no_event(void *mlx)
 void	move_map(t_mlx *mlx, t_map *map, int keycode)
 {
 	if (keycode == GO_RIGHT)
-	{
 		mlx->gap_x += 10;
-		mlx_destroy_image(mlx->ptr, mlx->img);
-		mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);	
-		draw_map(map, mlx);
-	}
-	
+	else if (keycode == GO_LEFT)
+		mlx->gap_x -= 10;
+	else if (keycode == GO_UP)
+		mlx->gap_y -= 10;
+	else if (keycode == GO_DOWN)
+		mlx->gap_y += 10;
+	new_image(mlx, map);
 }
 
 int	handle_input(int keycode, t_map *map)

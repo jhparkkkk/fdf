@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:08:52 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:29:34 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
 
 void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by)
 {
-	(void)ay;
-	(void)by;
+	*ay += mlx->gap_y;
+	*by += mlx->gap_y;
 	*ax += mlx->gap_x;
 	*bx += mlx->gap_x;
 }
@@ -90,11 +90,8 @@ void	draw_map(t_map *map, t_mlx *mlx)
 	int i = 0;
 	int j = 0;
 	
-	printf("GAP X = %d\n", mlx->gap_x);
-	printf("OUT I = %d\n", i);
 	while (i < map->row)
 	{
-		printf("I = %d\n", i);
 		j = 0;
 		while (j <= map->col)
 		{
@@ -119,14 +116,11 @@ int	main(int ac, char **av)
 	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
-	
-	mlx.gap_x = 0;
 	ft_mlx_init(&mlx, &map);
 	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 		return (0);
-	map.mlx = &mlx;
+	//map.mlx = &mlx;
 	draw_map(&map, &mlx);
-	//mlx_put_image_to_window(mlx.ptr, mlx.win, mlx.img, 0, 0);
 	mlx_hook(mlx.win, 2, 1L << 0, handle_input, &map);
 	mlx_loop(mlx.ptr);
 	return (0);

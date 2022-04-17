@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:00:14 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:21:08 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mlx
 	int		size_line;
 	int		endian;
 	int		gap_x;
+	int		gap_y;
 	
 }			t_mlx;
 
@@ -77,7 +78,7 @@ void	ft_mlx_destroy(t_mlx *mlx);
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
 int		handle_input(int keycode, t_map *map);
-
+void	new_image(t_mlx *mlx, t_map *map);
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);
 void	matrix_iso(t_map *map);
