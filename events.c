@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 11:19:15 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:09:37 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,33 @@ int handle_no_event(void *mlx)
 	return (0);
 }
 
-void	move_map(t_mlx **mlx, t_map *map, int keycode)
+void	move_map(t_mlx *mlx, t_map *map, int keycode)
 {
-	(void)map;
 	if (keycode == GO_RIGHT)
 	{
-		(*mlx)->gap_x += 10;
+		mlx->gap_x += 10;
+		mlx_destroy_image(mlx->ptr, mlx->img);
+		mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+		mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);	
+		draw_map(map, mlx);
 	}
 	
 }
 
-int	handle_input(int keycode, t_mlx *mlx, t_map *map)
+int	handle_input(int keycode, t_map *map)
 {
 	if (keycode == ESC)
 	{
-		mlx_destroy_window(mlx->ptr, mlx->win);
-		mlx_destroy_image(mlx->ptr, mlx->img);
-		free(mlx->ptr);
+		mlx_destroy_window(map->mlx->ptr, map->mlx->win);
+		mlx_destroy_image(map->mlx->ptr, map->mlx->img);
+		free(map->mlx->ptr);
 		exit(1);
 	}
 	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN) // move to right 
 	{
-		move_map(&mlx, map, keycode);
+		move_map(map->mlx, map, keycode);
 	}
-	draw_map(map, mlx);
+	draw_map(map, map->mlx);
 	return (0);
 }
 

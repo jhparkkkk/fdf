@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 11:20:29 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:08:52 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include "libft.h"
 
-void	put_pixel(t_mlx *mlx, int x, int y, int color)
+void	put_pix(t_mlx *mlx, int x, int y, int color)
 {
 	char	*pix;
 	
@@ -47,14 +47,20 @@ void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
 		sign->y = -1;
 }
 
+void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by)
+{
+	(void)ay;
+	(void)by;
+	*ax += mlx->gap_x;
+	*bx += mlx->gap_x;
+}
 void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
 {
 	t_point distance;
 	t_point sign;
 	int		error[2];
 	
-	/*ax += mlx->gap_x;
-	bx += mlx->gap_x;*/
+	check_movement(mlx, &ax, &ay, &bx, &by);
 	distance.x = f_abs(bx - ax);
 	distance.y = -f_abs(by - ay);
 	error[0] = distance.x + distance.y;
@@ -62,7 +68,7 @@ void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
 	
 	while (ax != bx || ay != by)
 	{
-		put_pixel(mlx, ax, ay, 0xFFCCCC);
+		put_pix(mlx, ax, ay, 0xFFCCCC);
 		error[1] = 2 * error[0];
       	if (error[1] > distance.y)
 	  	{
@@ -85,8 +91,10 @@ void	draw_map(t_map *map, t_mlx *mlx)
 	int j = 0;
 	
 	printf("GAP X = %d\n", mlx->gap_x);
+	printf("OUT I = %d\n", i);
 	while (i < map->row)
 	{
+		printf("I = %d\n", i);
 		j = 0;
 		while (j <= map->col)
 		{
@@ -99,9 +107,7 @@ void	draw_map(t_map *map, t_mlx *mlx)
 		i++;
 	}
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
-	//mlx_loop(mlx->ptr);
 }
-
 
 int	main(int ac, char **av)
 {
@@ -113,13 +119,15 @@ int	main(int ac, char **av)
 	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
+	
 	mlx.gap_x = 0;
 	ft_mlx_init(&mlx, &map);
 	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 		return (0);
+	map.mlx = &mlx;
 	draw_map(&map, &mlx);
 	//mlx_put_image_to_window(mlx.ptr, mlx.win, mlx.img, 0, 0);
-	mlx_key_hook(mlx.win, &handle_input, &mlx);
+	mlx_hook(mlx.win, 2, 1L << 0, handle_input, &map);
 	mlx_loop(mlx.ptr);
 	return (0);
 }

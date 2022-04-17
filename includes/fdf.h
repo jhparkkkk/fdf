@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 11:00:00 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:00:14 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_map
 	int		tile_height;
 	int		**plan;
 	t_point	**matrix; 
+	t_mlx	*mlx;
 }			t_map;
 /*-----------*INIT*------------*/
 
@@ -75,14 +76,14 @@ void	ft_mlx_destroy(t_mlx *mlx);
 
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
-int		handle_input(int keycode, t_mlx *mlx, t_map *map);
+int		handle_input(int keycode, t_map *map);
 
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);
 void	matrix_iso(t_map *map);
 
 /*---------*DRAWING*-----------*/
-void	put_pixel(t_mlx *mlx, int x, int y, int color);
+void	put_pix(t_mlx *mlx, int x, int y, int color);
 
 void	draw_line(t_mlx *mlx, float ax, float ay, float bx, float by);  
 void	draw_map(t_map *map, t_mlx *mlx);
