@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:29:34 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 18:17:03 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int	main(int ac, char **av)
 	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
-	ft_mlx_init(&mlx, &map);
-	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
+	ft_mlx_init(&mlx);
+	if (ft_mlx_init(&mlx) == MLX_ERROR)
 		return (0);
-	//map.mlx = &mlx;
+	map.mlx = &mlx;
 	draw_map(&map, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, handle_input, &map);
 	mlx_loop(mlx.ptr);

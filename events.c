@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:18:08 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 18:22:33 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int handle_no_event(void *mlx)
 	return (0);
 }
 
-void	move_map(t_mlx *mlx, t_map *map, int keycode)
+void	set_move(t_mlx *mlx, t_map *map, int keycode)
 {
 	if (keycode == GO_RIGHT)
 		mlx->gap_x += 10;
@@ -35,6 +35,17 @@ void	move_map(t_mlx *mlx, t_map *map, int keycode)
 	new_image(mlx, map);
 }
 
+void	set_altitude(t_mlx *mlx, t_map *map, int keycode)
+{
+	if (keycode == 1)
+	{
+		map->gap_z += 1;
+		printf("COUCOU\n");
+		matrix_init(map);
+		matrix_iso(map);
+	}	
+	new_image(mlx, map);
+}
 int	handle_input(int keycode, t_map *map)
 {
 	if (keycode == ESC)
@@ -44,11 +55,11 @@ int	handle_input(int keycode, t_map *map)
 		free(map->mlx->ptr);
 		exit(1);
 	}
-	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN) // move to right 
-	{
-		move_map(map->mlx, map, keycode);
-	}
-	draw_map(map, map->mlx);
+	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN)
+		set_move(map->mlx, map, keycode);
+	if (keycode == 1)
+		set_altitude(map->mlx, map, keycode);
+	//draw_map(map, map->mlx);
 	return (0);
 }
 

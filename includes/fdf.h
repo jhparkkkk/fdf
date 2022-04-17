@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:21:08 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 18:15:32 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ typedef struct s_map
 	int		fil;
 	int		tile_width;
 	int		tile_height;
+	int		gap_z;
 	int		**plan;
 	t_point	**matrix; 
 	t_mlx	*mlx;
 }			t_map;
 /*-----------*INIT*------------*/
 
-int		ft_mlx_init(t_mlx *mlx, t_map *map);
+int		ft_mlx_init(t_mlx *mlx);
 void	read_map(char **av, t_map *map);
 
 

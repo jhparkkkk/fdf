@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:21:34 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 18:17:22 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_mlx_destroy(t_mlx *mlx)
 	free(mlx->ptr);
 }
 
-int ft_mlx_init(t_mlx *mlx, t_map *map)
+int ft_mlx_init(t_mlx *mlx)
 {
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
@@ -44,7 +44,6 @@ int ft_mlx_init(t_mlx *mlx, t_map *map)
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
 	mlx->gap_x = 0;
 	mlx->gap_y = 0;
-	map->mlx = mlx;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 16:24:34 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 18:21:38 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void iso(t_map *map, float *x, float *y, float z)
 {
     float previous_x;
     float previous_y;
-
-	z *= 1;
+	
+	if (map->gap_z)
+		z *= map->gap_z;
     previous_x = (*x * scale_x(map)) - ((map->col * scale_x(map)) / 2);
-    previous_y = (*y * scale_x(map)) - ((map->row * scale_x(map)) / 2);
+    previous_y = (*y * scale_y(map)) - ((map->row * scale_y(map)) / 2);
     *x = round((previous_x - previous_y) * cos(0.523599) + WINDOW_WIDTH / 2 );
-    *y = round(-z + (previous_x + previous_y) * sin(0.523599) + WINDOW_HEIGHT / 2); //WINDOW_HEIGHT / map->row);
+    *y = round(-z + (previous_x + previous_y) * sin(0.523599) + WINDOW_HEIGHT / 2);
 }
 
 
