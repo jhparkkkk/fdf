@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/15 17:18:14 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 11:00:00 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # define WINDOW_HEIGHT 1080
 # define MLX_ERROR 1 
 # define ESC 53
+# define GO_LEFT 123
+# define GO_RIGHT 124
+# define GO_UP 126
+# define GO_DOWN 125
 
 //# include <X11/X.h>
 # include <math.h>
@@ -38,6 +42,7 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
+	int		gap_x;
 	
 }			t_mlx;
 
@@ -70,7 +75,7 @@ void	ft_mlx_destroy(t_mlx *mlx);
 
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
-int		handle_input(int keycode, t_mlx **mlx);
+int		handle_input(int keycode, t_mlx *mlx, t_map *map);
 
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);

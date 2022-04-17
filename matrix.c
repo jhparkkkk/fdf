@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/15 13:49:33 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 10:35:18 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int scale_x(t_map *map)
 	int distance;
 	(void)map;
 	distance = WINDOW_WIDTH / map->col / 2;
-	printf("distance x = %d\n", distance);
 	return (distance);	
 }
 
@@ -30,7 +29,6 @@ int scale_y(t_map *map)
 	int distance;
 	(void)map;
 	distance = WINDOW_HEIGHT / map->row / 2 ;
-	printf("distance y = %d\n", distance);
 	return (distance);	
 }
 

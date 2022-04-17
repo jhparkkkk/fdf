@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/15 17:15:35 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 11:20:29 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
 	t_point sign;
 	int		error[2];
 	
+	/*ax += mlx->gap_x;
+	bx += mlx->gap_x;*/
 	distance.x = f_abs(bx - ax);
 	distance.y = -f_abs(by - ay);
 	error[0] = distance.x + distance.y;
@@ -82,6 +84,7 @@ void	draw_map(t_map *map, t_mlx *mlx)
 	int i = 0;
 	int j = 0;
 	
+	printf("GAP X = %d\n", mlx->gap_x);
 	while (i < map->row)
 	{
 		j = 0;
@@ -95,7 +98,7 @@ void	draw_map(t_map *map, t_mlx *mlx)
 		}
 		i++;
 	}
-	//mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 	//mlx_loop(mlx->ptr);
 }
 
@@ -110,11 +113,13 @@ int	main(int ac, char **av)
 	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
+	mlx.gap_x = 0;
 	ft_mlx_init(&mlx, &map);
-	//mlx_key_hook(mlx.win, &handle_input, &mlx);
 	if (ft_mlx_init(&mlx, &map) == MLX_ERROR)
 		return (0);
-	//draw_map(&map, &mlx);
-	//mlx_loop(mlx.ptr);
+	draw_map(&map, &mlx);
+	//mlx_put_image_to_window(mlx.ptr, mlx.win, mlx.img, 0, 0);
+	mlx_key_hook(mlx.win, &handle_input, &mlx);
+	mlx_loop(mlx.ptr);
 	return (0);
 }

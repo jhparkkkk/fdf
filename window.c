@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/15 17:13:12 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/17 10:57:59 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int ft_mlx_init(t_mlx *mlx, t_map *map)
 		return (free(mlx->win), MLX_ERROR);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
-	draw_map(map, mlx);
-	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
-	//mlx_loop_hook(mlx->ptr, &handle_no_event, &mlx);
-	mlx_key_hook(mlx->win, &handle_input, &mlx);
-	mlx_loop(mlx->ptr);
+	
+	//draw_map(map, mlx);
+	
+	//mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	//mlx_key_hook(mlx->win, &handle_input, &mlx);
+	//mlx_loop(mlx->ptr);
 	return (0);
 }
 
