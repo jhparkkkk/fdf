@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 18:15:32 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 08:43:55 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define GO_RIGHT 124
 # define GO_UP 126
 # define GO_DOWN 125
+# define HIGHER 13
+# define LOWER 1
 
 //# include <X11/X.h>
 # include <math.h>

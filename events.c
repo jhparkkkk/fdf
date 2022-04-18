@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 18:22:33 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 08:45:21 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ void	set_move(t_mlx *mlx, t_map *map, int keycode)
 
 void	set_altitude(t_mlx *mlx, t_map *map, int keycode)
 {
-	if (keycode == 1)
+	if (keycode == HIGHER)
 	{
 		map->gap_z += 1;
-		printf("COUCOU\n");
 		matrix_init(map);
 		matrix_iso(map);
-	}	
+	}
+	else if (keycode == LOWER)
+	{
+		map->gap_z -= 1;
+		matrix_init(map);
+		matrix_iso(map);
+	}
 	new_image(mlx, map);
 }
 int	handle_input(int keycode, t_map *map)
@@ -57,9 +62,8 @@ int	handle_input(int keycode, t_map *map)
 	}
 	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN)
 		set_move(map->mlx, map, keycode);
-	if (keycode == 1)
+	if (keycode == HIGHER || keycode == LOWER)
 		set_altitude(map->mlx, map, keycode);
-	//draw_map(map, map->mlx);
 	return (0);
 }
 
