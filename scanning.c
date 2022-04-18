@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 18:18:10 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:06:35 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	**free_data(char **line_data)
 	return (NULL);
 }
 
-static char	**free_plan(int **line_data)
+static void free_plan(int **line_data)
 {
 	int	i;
 
@@ -88,7 +88,7 @@ static char	**free_plan(int **line_data)
 		i++;
 	}
 	free(line_data);
-	return (NULL);
+	//return (NULL);
 }
 
 // J'initialise mon tableau de hauteur 

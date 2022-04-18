@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 08:45:21 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:14:32 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,13 @@ void	set_altitude(t_mlx *mlx, t_map *map, int keycode)
 	}
 	new_image(mlx, map);
 }
-int	handle_input(int keycode, t_map *map)
+
+int	press_key(int keycode, t_map *map)
 {
 	if (keycode == ESC)
 	{
-		mlx_destroy_window(map->mlx->ptr, map->mlx->win);
-		mlx_destroy_image(map->mlx->ptr, map->mlx->img);
-		free(map->mlx->ptr);
-		exit(1);
+		destroy_mlx(map->mlx);
+		exit (1);
 	}
 	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN)
 		set_move(map->mlx, map, keycode);
@@ -66,22 +65,3 @@ int	handle_input(int keycode, t_map *map)
 		set_altitude(map->mlx, map, keycode);
 	return (0);
 }
-
-
-/* Si la touche symbole correspond bien a ESC, je ferme la fenetre.
-int	handle_input(int keycode, t_mlx **mlx, t_map *map)
-{
-	//printf pour test
-	if (keycode == ESC)
-	{
-		mlx_destroy_window((*mlx)->ptr, (*mlx)->win);
-		mlx_destroy_image((*mlx)->ptr, (*mlx)->img);
-		free((*mlx)->ptr);
-		exit(1);
-	}
-	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN) // move to right 
-	{
-		move_map(mlx, map, keycode);
-	}
-	return (0);
-}*/

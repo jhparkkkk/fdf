@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 08:43:55 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 15:15:22 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_point
 	float	x;
 	float	y;
 	float	z;
-	int	color; 
+	int		color; 
 }			t_point;
 
 typedef struct s_map
@@ -62,25 +62,25 @@ typedef struct s_map
 	int 	row;
 	int 	col;
 	int		fil;
-	int		tile_width;
-	int		tile_height;
+	int		tile_x;
+	int		tile_y;
 	int		gap_z;
 	int		**plan;
 	t_point	**matrix; 
 	t_mlx	*mlx;
 }			t_map;
+
 /*-----------*INIT*------------*/
 
-int		ft_mlx_init(t_mlx *mlx);
 void	read_map(char **av, t_map *map);
-
+int		ft_mlx_init(t_mlx *mlx);
 
 /*---------*DESTROY*-----------*/
-void	ft_mlx_destroy(t_mlx *mlx);
+void	destroy_mlx(t_mlx *mlx);
 
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
-int		handle_input(int keycode, t_map *map);
+int		press_key(int keycode, t_map *map);
 void	new_image(t_mlx *mlx, t_map *map);
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);
@@ -93,5 +93,8 @@ void	draw_line(t_mlx *mlx, float ax, float ay, float bx, float by);
 void	draw_map(t_map *map, t_mlx *mlx);
 
 void	try(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
+float	f_abs(float nb);
+void	find_sign(float ax, float ay, float bx, float by, t_point *sign);
+void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by);
 
 #endif

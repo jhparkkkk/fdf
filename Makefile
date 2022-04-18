@@ -12,8 +12,10 @@ LFLAGS		=	-I./libft -lft -L./libft -I./mlx -L./mlx
 
 LIBFT		=	./libft/libft.a
 
-SRCS		=	matrix.c \
+SRCS		=	fdf.c \
+				matrix.c \
 				drawing.c \
+				drawing_utils.c \
 				scanning.c \
 				events.c \
 				window.c \

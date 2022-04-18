@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/17 18:17:03 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/18 14:03:22 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,8 @@ void	put_pix(t_mlx *mlx, int x, int y, int color)
 		return ; 
 	pix = mlx->addr + (y * mlx->size_line + x * (mlx->bits_per_pixel / 8));
 	*(int *)pix = color;
-	
 }
 
-float f_abs(float nb)
-{
-	if (nb < 0)
-		return (nb *= -1);
-	return (nb);
-}
-
-void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
-{
-	if (ax < bx)
-		sign->x = 1;
-	else
-		sign->x = -1;
-
-	if (ay < by)
-		sign->y = 1;
-	else
-		sign->y = -1;
-}
-
-void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by)
-{
-	*ay += mlx->gap_y;
-	*by += mlx->gap_y;
-	*ax += mlx->gap_x;
-	*bx += mlx->gap_x;
-}
 void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
 {
 	t_point distance;
@@ -104,24 +76,4 @@ void	draw_map(t_map *map, t_mlx *mlx)
 		i++;
 	}
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
-}
-
-int	main(int ac, char **av)
-{
-	t_map	map;
-	t_mlx	mlx;
-
-	if (ac < 2)
-		return (0);
-	read_map(av, &map);
-	matrix_init(&map);
-	matrix_iso(&map);
-	ft_mlx_init(&mlx);
-	if (ft_mlx_init(&mlx) == MLX_ERROR)
-		return (0);
-	map.mlx = &mlx;
-	draw_map(&map, &mlx);
-	mlx_hook(mlx.win, 2, 1L << 0, handle_input, &map);
-	mlx_loop(mlx.ptr);
-	return (0);
 }
