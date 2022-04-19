@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 16:05:37 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 16:53:34 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,25 @@ void iso(t_map *map, float *x, float *y, float z)
     float previous_x;
     float previous_y;
 	
+	printf("ANGLE %f\n", map->angle_x);
 	if (map->gap_z)
 		z *= map->gap_z;
-	previous_x = (*x * scale_x(map)) - ((map->col * scale_x(map)) / 2);
-    previous_y = (*y * scale_y(map)) - ((map->row * scale_y(map)) / 2);
-    *x = round((previous_x - previous_y) * cos(M_PI / 6) + WINDOW_WIDTH / 2 );
+	previous_x = *x  - (map->col * scale_x(map) / 2);
+    previous_y = *y  - (map->row * scale_y(map) / 2);
+    *x = round((previous_x - previous_y) * cos(map->angle_x) + WINDOW_WIDTH / 2 );
     *y = round(-z + (previous_x + previous_y) * sin(M_PI / 6) + WINDOW_HEIGHT / 2);
 }
+
+/*void	rotate_x(t_map *map, float x, float *y, float *z)
+{
+	float previous_y; 
+	float previous_z; 
+
+	previous_y = *y;
+	previous_z = *z; 
+	
+	*y = round(previous_y * cos(map->angle_x))
+}*/
 
 
 void matrix_iso(t_map *map)
@@ -73,8 +85,8 @@ void matrix_init(t_map *map)
 		j = 0;
 		while (j <= map->col)
 		{
-			map->matrix[i][j].x = j * scale_x(map) + WINDOW_WIDTH / 2;
-			map->matrix[i][j].y = i * scale_y(map) + WINDOW_HEIGHT / 2;
+			map->matrix[i][j].x = j * scale_x(map) - ((map->col * scale_x(map)) / 2) + WINDOW_WIDTH / 2;
+			map->matrix[i][j].y = i * scale_y(map)  - ((map->row * scale_y(map)) / 2) + WINDOW_HEIGHT / 2;
 			map->matrix[i][j].z = map->plan[i][j];
 			j++;
 		}

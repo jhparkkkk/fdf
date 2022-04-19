@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:03:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 16:05:07 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 16:52:10 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
+# include <math.h>
 int	main(int ac, char **av)
 {
 	t_map	map;
@@ -24,8 +24,9 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	read_map(av, &map);
+	map.angle_x = M_PI / 6; 
 	matrix_init(&map);
-	//matrix_iso(&map);
+	matrix_iso(&map);
 	if (ft_mlx_init(&mlx) == MLX_ERROR)
 		return (0);
 	map.mlx = &mlx;

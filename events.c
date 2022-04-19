@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 15:07:28 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 17:10:49 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ void	set_zoom(t_mlx *mlx, t_map *map, int keycode)
 	matrix_iso(map);
 	new_image(mlx, map);
 }
+
+void set_angle(t_mlx *mlx, t_map *map, int keycode)
+{
+	if (keycode == ROTATE_RIGHT)
+		map->angle_x += 0.1;
+	if (keycode == ROTATE_LEFT)
+		map->angle_x -= 0.1;
+	matrix_init(map);
+	matrix_iso(map);
+	new_image(mlx, map); 
+}
+
 int	press_key(int keycode, t_map *map)
 {
 	if (keycode == ESC)
@@ -69,5 +81,7 @@ int	press_key(int keycode, t_map *map)
 		set_altitude(map->mlx, map, keycode);
 	if (keycode == PLUS || keycode == MINUS)
 		set_zoom(map->mlx, map, keycode);
+	if (keycode == ROTATE_RIGHT || keycode == ROTATE_LEFT)
+		set_angle(map->mlx, map, keycode);
 	return (0);
 }
