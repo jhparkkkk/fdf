@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 14:03:22 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:06:05 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
 	{
 		put_pix(mlx, ax, ay, 0xFFCCCC);
 		error[1] = 2 * error[0];
-      	if (error[1] > distance.y)
+      	if (error[1] >= distance.y)
 	  	{
 			  error[0] += distance.y;
 			  ax += sign.x; 
 		} 
-    	if (error[1] < distance.x) 
+    	if (error[1] <= distance.x) 
 	  	{
 			  error[0] += distance.x;
 			  ay += sign.y;

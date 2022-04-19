@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 15:15:22 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 13:46:54 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define GO_DOWN 125
 # define HIGHER 13
 # define LOWER 1
+# define PLUS 24
+# define MINUS 27
 
 //# include <X11/X.h>
 # include <math.h>
@@ -68,6 +70,7 @@ typedef struct s_map
 	int		**plan;
 	t_point	**matrix; 
 	t_mlx	*mlx;
+	int		zoom;
 }			t_map;
 
 /*-----------*INIT*------------*/

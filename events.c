@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 15:14:32 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:07:28 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,24 @@ void	set_move(t_mlx *mlx, t_map *map, int keycode)
 void	set_altitude(t_mlx *mlx, t_map *map, int keycode)
 {
 	if (keycode == HIGHER)
-	{
 		map->gap_z += 1;
-		matrix_init(map);
-		matrix_iso(map);
-	}
 	else if (keycode == LOWER)
-	{
 		map->gap_z -= 1;
-		matrix_init(map);
-		matrix_iso(map);
-	}
+	matrix_init(map);
+	matrix_iso(map);
 	new_image(mlx, map);
 }
 
+void	set_zoom(t_mlx *mlx, t_map *map, int keycode)
+{
+	if (keycode == PLUS)
+		map->zoom += 1;
+	if (keycode == MINUS)
+		map->zoom -= 1;
+	matrix_init(map);
+	matrix_iso(map);
+	new_image(mlx, map);
+}
 int	press_key(int keycode, t_map *map)
 {
 	if (keycode == ESC)
@@ -63,5 +67,7 @@ int	press_key(int keycode, t_map *map)
 		set_move(map->mlx, map, keycode);
 	if (keycode == HIGHER || keycode == LOWER)
 		set_altitude(map->mlx, map, keycode);
+	if (keycode == PLUS || keycode == MINUS)
+		set_zoom(map->mlx, map, keycode);
 	return (0);
 }

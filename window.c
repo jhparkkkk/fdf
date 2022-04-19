@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 10:50:15 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:31:30 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "libft.h"
-
 
 void	new_image(t_mlx *mlx, t_map *map)
 {

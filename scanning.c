@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 15:06:35 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/19 13:31:07 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	read_map(char **av, t_map *map)
 	char *line = NULL;
     
 	map->gap_z = 0;
+	map->zoom = 0;
     line_counter(av, map);
 	tab_init(av, map);
 	fd = open(av[1], O_RDONLY);
