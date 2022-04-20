@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 16:30:33 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/18 14:01:53 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 04:16:51 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,34 @@
 #include <fcntl.h>
 #include "libft.h"
 
-float f_abs(float nb)
+char	**free_data(char **line_data)
+{
+	int	i;
+
+	i = 0;
+	while (line_data[i])
+	{
+		free(line_data[i]);
+		i++;
+	}
+	free(line_data);
+	return (NULL);
+}
+
+void	free_plan(int **line_data)
+{
+	int	i;
+
+	i = 0;
+	while (line_data[i])
+	{
+		free(line_data[i]);
+		i++;
+	}
+	free(line_data);
+}
+
+float	f_abs(float nb)
 {
 	if (nb < 0)
 		return (nb *= -1);
@@ -29,7 +56,6 @@ void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
 		sign->x = 1;
 	else
 		sign->x = -1;
-
 	if (ay < by)
 		sign->y = 1;
 	else

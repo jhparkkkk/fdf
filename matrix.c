@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 16:53:34 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 01:52:10 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ void iso(t_map *map, float *x, float *y, float z)
     *x = round((previous_x - previous_y) * cos(map->angle_x) + WINDOW_WIDTH / 2 );
     *y = round(-z + (previous_x + previous_y) * sin(M_PI / 6) + WINDOW_HEIGHT / 2);
 }
-
-/*void	rotate_x(t_map *map, float x, float *y, float *z)
-{
-	float previous_y; 
-	float previous_z; 
-
-	previous_y = *y;
-	previous_z = *z; 
-	
-	*y = round(previous_y * cos(map->angle_x))
-}*/
-
 
 void matrix_iso(t_map *map)
 {

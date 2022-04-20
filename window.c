@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 15:31:30 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 02:27:45 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	new_image(t_mlx *mlx, t_map *map)
 {
 	mlx_destroy_image(mlx->ptr, mlx->img);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);	
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->len, &mlx->end);
 	draw_map(map, mlx);
 }
 
@@ -31,18 +31,17 @@ void	destroy_mlx(t_mlx *mlx)
 	free(mlx->ptr);
 }
 
-int ft_mlx_init(t_mlx *mlx)
+int	ft_mlx_init(t_mlx *mlx)
 {
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (MLX_ERROR);
-	mlx->win = mlx_new_window(mlx->ptr,  WINDOW_WIDTH, WINDOW_HEIGHT, "fdf");
+	mlx->win = mlx_new_window(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "fdf");
 	if (!mlx->win)
 		return (free(mlx->win), MLX_ERROR);
 	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->len, &mlx->end);
 	mlx->gap_x = 0;
 	mlx->gap_y = 0;
 	return (0);
 }
-

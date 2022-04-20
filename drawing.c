@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 15:06:05 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 02:33:52 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 void	put_pix(t_mlx *mlx, int x, int y, int color)
 {
 	char	*pix;
-	
-	if ( x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT - 1)
-		return ; 
-	pix = mlx->addr + (y * mlx->size_line + x * (mlx->bits_per_pixel / 8));
+
+	if (x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT - 1)
+		return ;
+	pix = mlx->addr + (y * mlx->len + x * (mlx->bpp / 8));
 	*(int *)pix = color;
 }
 
-void draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)  
+void	draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
 {
 	t_point distance;
 	t_point sign;

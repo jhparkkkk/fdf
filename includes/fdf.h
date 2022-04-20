@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 17:10:57 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 02:25:49 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct s_mlx
 	void	*win;
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
+	int		bpp;
+	int		len;
+	int		end;
 	int		gap_x;
 	int		gap_y;
 	
@@ -83,6 +83,8 @@ void	destroy_mlx(t_mlx *mlx);
 int		handle_no_event(void *mlx);
 int		press_key(int keycode, t_map *map);
 void	new_image(t_mlx *mlx, t_map *map);
+char	**free_data(char **line_data);
+void	free_plan(int **line_data);
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);
 void	matrix_iso(t_map *map);

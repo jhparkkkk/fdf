@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 17:10:49 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/20 04:15:24 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include "libft.h"
 
-int handle_no_event(void *mlx)
+int	handle_no_event(void *mlx)
 {
 	(void)*mlx;
 	return (0);
@@ -57,7 +57,7 @@ void	set_zoom(t_mlx *mlx, t_map *map, int keycode)
 	new_image(mlx, map);
 }
 
-void set_angle(t_mlx *mlx, t_map *map, int keycode)
+void	set_angle(t_mlx *mlx, t_map *map, int keycode)
 {
 	if (keycode == ROTATE_RIGHT)
 		map->angle_x += 0.1;
@@ -65,7 +65,7 @@ void set_angle(t_mlx *mlx, t_map *map, int keycode)
 		map->angle_x -= 0.1;
 	matrix_init(map);
 	matrix_iso(map);
-	new_image(mlx, map); 
+	new_image(mlx, map);
 }
 
 int	press_key(int keycode, t_map *map)
@@ -75,7 +75,8 @@ int	press_key(int keycode, t_map *map)
 		destroy_mlx(map->mlx);
 		exit (1);
 	}
-	if (keycode == GO_RIGHT || keycode == GO_LEFT || keycode == GO_UP || keycode == GO_DOWN)
+	if (keycode == GO_RIGHT || keycode == GO_LEFT
+		|| keycode == GO_UP || keycode == GO_DOWN)
 		set_move(map->mlx, map, keycode);
 	if (keycode == HIGHER || keycode == LOWER)
 		set_altitude(map->mlx, map, keycode);
