@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/20 02:25:49 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:43:17 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define MLX_ERROR 1 
-# define ESC 53
-# define GO_LEFT 123
-# define GO_RIGHT 124
-# define GO_UP 126
-# define GO_DOWN 125
-# define HIGHER 13
-# define LOWER 1
-# define PLUS 24
-# define MINUS 27
-# define ROTATE_RIGHT 2
-# define ROTATE_LEFT 0
+# define ESC 65307
+# define GO_LEFT 65361
+# define GO_RIGHT 65363
+# define GO_UP 65362
+# define GO_DOWN 65364
+# define HIGHER 119
+# define LOWER 115
+# define PLUS 61
+# define MINUS 45
+# define ROTATE_RIGHT 100
+# define ROTATE_LEFT 97
 
-//# include <X11/X.h>
+# include <X11/X.h>
 # include <math.h>
 # include "mlx.h"
 # include "libft.h"

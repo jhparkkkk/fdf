@@ -4,11 +4,11 @@ CC			= 	cc
 
 RM 			= 	rm -f
 
-INC			=	-Iincludes -Ilibft -Imlx
+INC			=	-Iincludes -Ilibft -Imlx_linux
 
 CFLAGS		=	-Wall -Wextra -Werror -g3
 
-LFLAGS		=	-I./libft -lft -L./libft -I./mlx -L./mlx 
+LFLAGS		=	-I./libft -lft -L./libft -I./mlx_linux -L./mlx_linux
 
 LIBFT		=	./libft/libft.a
 
@@ -32,7 +32,7 @@ $(LIBFT):
 			$(MAKE) -C $(@D) $(@F)
 
 $(NAME):	$(LIBFT) $(OBJS) 
-			$(CC) $(OBJS) $(LFLAGS) $(OUTPUT_OPTION) -fsanitize=address -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)  
+			$(CC) $(OBJS) $(LFLAGS) $(OUTPUT_OPTION) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)  
 
 clean:
 			$(RM) $(OBJS)

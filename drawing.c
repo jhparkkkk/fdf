@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/20 02:33:52 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:45:35 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	put_pix(t_mlx *mlx, int x, int y, int color)
 	if (x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT - 1)
 		return ;
 	pix = mlx->addr + (y * mlx->len + x * (mlx->bpp / 8));
-	*(int *)pix = color;
+	*(int *)pix = color; 
 }
 
-void	draw_line(t_mlx *mlx, float ax, float ay, float bx, float by)
+void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 {
 	t_point distance;
 	t_point sign;
@@ -68,9 +68,9 @@ void	draw_map(t_map *map, t_mlx *mlx)
 		while (j <= map->col)
 		{
 			if (i + 1 < map->row)
-				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i + 1][j].x, map->matrix[i + 1][j].y);
+				draw_line(mlx, map->matrix[i][j], map->matrix[i + 1][j]);
 			if (j + 1 <= map->col)
-				draw_line(mlx, map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j + 1].x, map->matrix[i][j + 1].y);
+				draw_line(mlx, map->matrix[i][j], map->matrix[i][j + 1].x, map->matrix[i][j + 1].y);
 			j++;
 		}
 		i++;
