@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scanning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/20 02:11:16 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:19:06 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../includes/fdf.h"
+#include "fdf.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 16:30:33 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/20 04:16:51 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:21:33 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "fdf.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -50,22 +50,22 @@ float	f_abs(float nb)
 	return (nb);
 }
 
-void	find_sign(float ax, float ay, float bx, float by, t_point *sign)
+void	find_sign(t_point *a, t_point *b, t_point *sign)
 {
-	if (ax < bx)
+	if (a->x < b->x)
 		sign->x = 1;
 	else
 		sign->x = -1;
-	if (ay < by)
+	if (a->y < b->y)
 		sign->y = 1;
 	else
 		sign->y = -1;
 }
 
-void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by)
+void	check_movement(t_mlx *mlx, t_point *start, t_point *end)
 {
-	*ay += mlx->gap_y;
-	*by += mlx->gap_y;
-	*ax += mlx->gap_x;
-	*bx += mlx->gap_x;
+	start->y += mlx->gap_y;
+	end->y += mlx->gap_y;
+	start->x += mlx->gap_x;
+	end->x += mlx->gap_x;
 }

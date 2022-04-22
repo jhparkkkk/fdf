@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/22 16:43:17 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:28:27 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,11 @@ void	matrix_iso(t_map *map);
 /*---------*DRAWING*-----------*/
 void	put_pix(t_mlx *mlx, int x, int y, int color);
 
-void	draw_line(t_mlx *mlx, float ax, float ay, float bx, float by);  
+void	draw_line(t_mlx *mlx, t_point *a, t_point *b);  
 void	draw_map(t_map *map, t_mlx *mlx);
 
-void	try(t_mlx *mlx, t_map *map, t_point *a, t_point *b);
 float	f_abs(float nb);
-void	find_sign(float ax, float ay, float bx, float by, t_point *sign);
-void	check_movement(t_mlx *mlx, float *ax, float *ay, float *bx, float *by);
+void	find_sign(t_point *a, t_point *b, t_point *sign);
+void	check_movement(t_mlx *mlx, t_point *a, t_point *b);
 
 #endif

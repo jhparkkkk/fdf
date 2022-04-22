@@ -4,11 +4,11 @@ CC			= 	cc
 
 RM 			= 	rm -f
 
-INC			=	-Iincludes -Ilibft -Imlx_linux
+INC			=	-I includes -I libft -I mlx_linux 
 
 CFLAGS		=	-Wall -Wextra -Werror -g3
 
-LFLAGS		=	-I./libft -lft -L./libft -I./mlx_linux -L./mlx_linux
+LFLAGS		=	-I./libft -lft -L./libft -I./mlx_linux -L./mlx_linux -I./fdf -L./fdf
 
 LIBFT		=	./libft/libft.a
 
