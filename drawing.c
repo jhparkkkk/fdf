@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/22 17:29:37 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:57:13 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,43 +20,36 @@ void	put_pix(t_mlx *mlx, int x, int y, int color)
 {
 	char	*pix;
 
-	if (x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT - 1)
+	if (x < 0 || y < 0 || x > WINDOW_WIDTH - 1 || y > WINDOW_HEIGHT)
 		return ;
 	pix = mlx->addr + (y * mlx->len + x * (mlx->bpp / 8));
-	*(int *)pix = color; 
+	*(int *)pix = color;
 }
 
 void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 {
-	t_point distance;
-	t_point sign;
-	int		error[2];
-	t_point	start;
-	t_point	end; 
+	t_bres bres;
 
-	end.x = b->x;
-	end.y = b->y; 
-	start.x = a->x;
-	start.y = a->y;
-	check_movement(mlx, &start, &end);
-	distance.x = f_abs(end.x - start.x);
-	distance.y = -f_abs(end.y - start.y);
-	error[0] = distance.x + distance.y;
-	find_sign(a, b, &sign);
-	
-	while (start.x != end.x || start.y != end.y)
+	bres.end = *b;
+	bres.start = *a;
+	check_movement(mlx, &bres.start, &bres.end);
+	bres.distance.x = f_abs(bres.end.x - bres.start.x);
+	bres.distance.y = -f_abs(bres.end.y - bres.start.y);
+	bres.error_0 = bres.distance.x + bres.distance.y;
+	find_sign(a, b, &bres.sign);
+	while (bres.start.x != bres.end.x || bres.start.y != bres.end.y)
 	{
-		put_pix(mlx, start.x, start.y, 0xFFCCCC);
-		error[1] = 2 * error[0];
-      	if (error[1] >= distance.y)
+		put_pix(mlx, bres.start.x, bres.start.y, 0xFFCCCC);
+		bres.error_1 = 2 * bres.error_0;
+      	if (bres.error_1 >= bres.distance.y)
 	  	{
-			  error[0] += distance.y;
-			  start.x += sign.x; 
+			  bres.error_0 += bres.distance.y;
+			  bres.start.x += bres.sign.x; 
 		} 
-    	if (error[1] <= distance.x) 
+    	if (bres.error_1 <= bres.distance.x) 
 	  	{
-			  error[0] += distance.x;
-			  start.y += sign.y;
+			  bres.error_0 += bres.distance.x;
+			  bres.start.y += bres.sign.y;
 		}
    }
 }
