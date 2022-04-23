@@ -18,6 +18,7 @@ SRCS		=	fdf.c \
 				drawing_utils.c \
 				scanning.c \
 				events.c \
+				settings.c \
 				window.c \
 				
 

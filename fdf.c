@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:03:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/19 16:52:10 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 18:49:48 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
-	read_map(av, &map);
 	map.angle_x = M_PI / 6; 
+	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
 	if (ft_mlx_init(&mlx) == MLX_ERROR)
@@ -32,6 +32,11 @@ int	main(int ac, char **av)
 	map.mlx = &mlx;
 	draw_map(&map, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, press_key, &map);
+	
 	mlx_loop(mlx.ptr);
+	destroy_mlx(&mlx, &map);
+	//destroy_mlx(map.mlx);
+	free_plan(map.plan);
+	matrix_destroy(&map);
 	return (0);
 }

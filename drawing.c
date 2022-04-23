@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/22 17:57:13 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 17:19:39 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	put_pix(t_mlx *mlx, int x, int y, int color)
 
 void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 {
-	t_bres bres;
+	t_bres	bres;
 
 	bres.end = *b;
 	bres.start = *a;
@@ -41,26 +41,25 @@ void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 	{
 		put_pix(mlx, bres.start.x, bres.start.y, 0xFFCCCC);
 		bres.error_1 = 2 * bres.error_0;
-      	if (bres.error_1 >= bres.distance.y)
-	  	{
-			  bres.error_0 += bres.distance.y;
-			  bres.start.x += bres.sign.x; 
-		} 
-    	if (bres.error_1 <= bres.distance.x) 
-	  	{
-			  bres.error_0 += bres.distance.x;
-			  bres.start.y += bres.sign.y;
+		if (bres.error_1 >= bres.distance.y)
+		{
+			bres.error_0 += bres.distance.y;
+			bres.start.x += bres.sign.x;
 		}
-   }
+		if (bres.error_1 <= bres.distance.x)
+		{
+			bres.error_0 += bres.distance.x;
+			bres.start.y += bres.sign.y;
+		}
+	}
 }
-
-
 
 void	draw_map(t_map *map, t_mlx *mlx)
 {
-	int i = 0;
-	int j = 0;
-	
+	int	i;
+	int	j;
+
+	i = 0;
 	while (i < map->row)
 	{
 		j = 0;

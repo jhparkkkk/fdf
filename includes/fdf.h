@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/22 17:44:39 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 18:33:45 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # include <math.h>
 # include "mlx.h"
 # include "libft.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 
 typedef struct s_mlx
@@ -87,7 +90,7 @@ void	read_map(char **av, t_map *map);
 int		ft_mlx_init(t_mlx *mlx);
 
 /*---------*DESTROY*-----------*/
-void	destroy_mlx(t_mlx *mlx);
+void	destroy_mlx(t_mlx *mlx, t_map *map);
 
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
@@ -95,9 +98,16 @@ int		press_key(int keycode, t_map *map);
 void	new_image(t_mlx *mlx, t_map *map);
 char	**free_data(char **line_data);
 void	free_plan(int **line_data);
+
+/*---------*SETTINGS*-----------*/
+void	set_move(t_mlx *mlx, t_map *map, int keycode);
+void	set_altitude(t_mlx *mlx, t_map *map, int keycode);
+void	set_zoom(t_mlx *mlx, t_map *map, int keycode);
+void	set_angle(t_mlx *mlx, t_map *map, int keycode);
 /*---------*MATRIX*-----------*/
 void	matrix_init(t_map *map);
 void	matrix_iso(t_map *map);
+void	matrix_destroy(t_map *map);
 
 /*---------*DRAWING*-----------*/
 void	put_pix(t_mlx *mlx, int x, int y, int color);

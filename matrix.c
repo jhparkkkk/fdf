@@ -3,51 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/20 01:52:10 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 18:45:50 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include "libft.h"
-# include <math.h>
+#include "fdf.h"
 
-float scale_x(t_map *map)
+static float	scale_x(t_map *map)
 {
-	float distance = (WINDOW_WIDTH / map->col / 2) + map->zoom;
-	return (distance);	
+	float	scale_x;
+
+	scale_x = (WINDOW_WIDTH / map->col / 2) + map->zoom;
+	return (scale_x);
 }
 
-int scale_y(t_map *map)
+static float	scale_y(t_map *map)
 {
-	float distance = (WINDOW_HEIGHT / map->row / 2) + map->zoom;
-	return (distance);	
+	float	scale_y;
+
+	scale_y = (WINDOW_HEIGHT / map->row / 2) + map->zoom;
+	return (scale_y);
 }
 
-void iso(t_map *map, float *x, float *y, float z)
+void	iso(t_map *map, float *x, float *y, float z)
 {
-    float previous_x;
-    float previous_y;
-	
-	printf("ANGLE %f\n", map->angle_x);
+	float	prior_x;
+	float	prior_y;
+
 	if (map->gap_z)
 		z *= map->gap_z;
-	previous_x = *x  - (map->col * scale_x(map) / 2);
-    previous_y = *y  - (map->row * scale_y(map) / 2);
-    *x = round((previous_x - previous_y) * cos(map->angle_x) + WINDOW_WIDTH / 2 );
-    *y = round(-z + (previous_x + previous_y) * sin(M_PI / 6) + WINDOW_HEIGHT / 2);
+	prior_x = *x - (map->col * scale_x(map) / 2);
+	prior_y = *y - (map->row * scale_y(map) / 2);
+	*x = round((prior_x - prior_y) * cos(map->angle_x) + WINDOW_WIDTH / 2);
+	*y = round(-z + (prior_x + prior_y) * sin(M_PI / 6) + WINDOW_HEIGHT / 2);
 }
 
-void matrix_iso(t_map *map)
+void	matrix_iso(t_map *map)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 	
+	i = 0;
 	while (i < map->row)
 	{
 		j = 0;
@@ -60,12 +59,25 @@ void matrix_iso(t_map *map)
 	}
 }
 
+void matrix_destroy(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (i < map->row)
+	{	
+		free(map->matrix[i]);
+		i++;
+	}
+	free(map->matrix);
+}
+
 void matrix_init(t_map *map)
 {
 	int i; 
-	int j; 
+	int j;
+
 	map->matrix = (t_point **)malloc(sizeof(t_point *) * (map->row + 1));
-	
 	i = 0;
 	while (i < map->row)
 	{
@@ -74,7 +86,7 @@ void matrix_init(t_map *map)
 		while (j <= map->col)
 		{
 			map->matrix[i][j].x = j * scale_x(map) - ((map->col * scale_x(map)) / 2) + WINDOW_WIDTH / 2;
-			map->matrix[i][j].y = i * scale_y(map)  - ((map->row * scale_y(map)) / 2) + WINDOW_HEIGHT / 2;
+			map->matrix[i][j].y = i * scale_y(map) - ((map->row * scale_y(map)) / 2) + WINDOW_HEIGHT / 2;
 			map->matrix[i][j].z = map->plan[i][j];
 			j++;
 		}
