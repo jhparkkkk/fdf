@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 18:10:28 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 20:36:14 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	line_counter(char **av, t_map *map)
 	buf[0] = 0;
 	ret = 1 ;
 	fd = open(av[1], O_RDONLY);
+	if (read(fd, buf, 0) == FD_ERROR)
+		return (FD_ERROR);
 	map->row = 0;
 	while (ret != 0)
 	{
@@ -38,12 +40,20 @@ static int	line_counter(char **av, t_map *map)
 
 static void	tab_init(char **av, t_map *map)
 {
-	map->plan = (int **)malloc(sizeof(int *) * (line_counter(av, map) + 2));
+	int	line;
+
+	line = line_counter(av, map);
+	if (line == FD_ERROR)
+		exit (1);
+	map->plan = (int **)malloc(sizeof(int *) * (line + 2));
 	if (!map->plan)
+	{
 		free(map->plan);
+		exit (1);
+	}
 }
 
-void	column_counter(char const *s, char c, t_map *map)
+static void	column_counter(char const *s, char c, t_map *map)
 {
 	int	i;
 
@@ -91,7 +101,7 @@ void	save_map(char *line, t_map *map)
 	map->fil++;
 }
 
-void	read_map(char **av, t_map *map)
+int	read_map(char **av, t_map *map)
 {
 	int		fd;
 	int		i;
@@ -106,8 +116,6 @@ void	read_map(char **av, t_map *map)
 	map->col = 0;
 	tab_init(av, map);
 	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return ;
 	map->fil = 0;
 	while (i <= map->row)
 	{
@@ -118,4 +126,5 @@ void	read_map(char **av, t_map *map)
 		free(line);
 		i++;
 	}
+	return (0);
 }

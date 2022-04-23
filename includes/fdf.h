@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 18:33:45 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/23 20:14:37 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
-# define MLX_ERROR 1 
+# define MLX_ERROR 1
+# define FD_ERROR -1
 # define ESC 65307
 # define GO_LEFT 65361
 # define GO_RIGHT 65363
@@ -86,7 +87,7 @@ typedef struct s_bres
 
 /*-----------*INIT*------------*/
 
-void	read_map(char **av, t_map *map);
+int		read_map(char **av, t_map *map);
 int		ft_mlx_init(t_mlx *mlx);
 
 /*---------*DESTROY*-----------*/
