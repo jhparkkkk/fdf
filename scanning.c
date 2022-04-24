@@ -6,15 +6,11 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 20:36:14 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 10:42:26 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 static int	line_counter(char **av, t_map *map)
 {
@@ -110,13 +106,8 @@ int	read_map(char **av, t_map *map)
 	fd = 0;
 	i = 0;
 	line = NULL;
-	map->gap_z = 0;
-	map->zoom = 0;
-	map->row = 0;
-	map->col = 0;
 	tab_init(av, map);
 	fd = open(av[1], O_RDONLY);
-	map->fil = 0;
 	while (i <= map->row)
 	{
 		line = get_next_line(fd);

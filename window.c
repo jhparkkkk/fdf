@@ -6,20 +6,37 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 19:18:29 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 11:31:53 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include "libft.h"
+#include "fdf.h"
 
-void	new_image(t_mlx *mlx, t_map *map)
+void	matrix_destroy(t_map *map)
 {
+	int	i;
+
+	i = 0;
+	while (i < map->row)
+	{	
+		free(map->trix[i]);
+		i++;
+	}
+	free(map->trix);
+}
+
+void	new_image(t_mlx *mlx, t_map *map, int keycode)
+{
+	if (keycode == HIGHER || keycode == LOWER
+		|| keycode == PLUS || keycode == MINUS
+		|| keycode == ROTATE_RIGHT || keycode == ROTATE_LEFT)
+	{
+		matrix_destroy(map);
+		matrix_init(map);
+		matrix_iso(map);
+	}
 	mlx_destroy_image(mlx->ptr, mlx->img);
-	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx->img = mlx_new_image(mlx->ptr, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->len, &mlx->end);
 	draw_map(map, mlx);
 }
@@ -39,10 +56,10 @@ int	ft_mlx_init(t_mlx *mlx)
 	mlx->ptr = mlx_init();
 	if (!mlx->ptr)
 		return (MLX_ERROR);
-	mlx->win = mlx_new_window(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "fdf");
+	mlx->win = mlx_new_window(mlx->ptr, WIDTH, HEIGHT, "fdf");
 	if (!mlx->win)
 		return (free(mlx->ptr), MLX_ERROR);
-	mlx->img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx->img = mlx_new_image(mlx->ptr, WIDTH, HEIGHT);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->len, &mlx->end);
 	mlx->gap_x = 0;
 	mlx->gap_y = 0;

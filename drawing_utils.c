@@ -6,15 +6,11 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 16:30:33 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/22 17:21:33 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 10:03:55 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include "libft.h"
 
 char	**free_data(char **line_data)
 {

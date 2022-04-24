@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 18:35:49 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 11:05:06 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ int	handle_no_event(void *mlx)
 	return (0);
 }
 
+int	press_mouse(t_map *map)
+{
+	destroy_mlx(map->mlx, map);
+	exit (0);
+}
+
 int	press_key(int keycode, t_map *map)
 {
 	if (keycode == ESC)
 	{
 		destroy_mlx(map->mlx, map);
-		exit (1);
+		exit (0);
 	}
 	if (keycode == GO_RIGHT || keycode == GO_LEFT
 		|| keycode == GO_UP || keycode == GO_DOWN)

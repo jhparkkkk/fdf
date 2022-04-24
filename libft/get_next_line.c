@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeepark <jeepark@student42.fr>             +#+  +:+       +#+        */
+/*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 23:05:03 by jeepark           #+#    #+#             */
-/*   Updated: 2022/03/18 18:41:19 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 11:49:05 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_next_line(int fd)
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*s;
 	char		*dent;
-	int			ret = 0;
+	int			ret;
 
 	if (read(fd, buffer, 0) == -1)
 		return (NULL);

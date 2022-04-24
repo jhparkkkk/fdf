@@ -12,8 +12,10 @@ LFLAGS		=	-I./libft -lft -L./libft -I./mlx_linux -L./mlx_linux -I./fdf -L./fdf
 
 LIBFT		=	./libft/libft.a
 
-SRCS		=	fdf.c \
+SRCS		=	init.c \
+				fdf.c \
 				matrix.c \
+				matrix_utils.c \
 				drawing.c \
 				drawing_utils.c \
 				scanning.c \

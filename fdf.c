@@ -6,16 +6,11 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:03:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/23 20:28:55 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 11:56:29 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "../includes/fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-# include <math.h>
+#include "fdf.h"
 
 int	main(int ac, char **av)
 {
@@ -24,7 +19,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
-	map.angle_x = M_PI / 6;
+	map_init(&map);
 	read_map(av, &map);
 	matrix_init(&map);
 	matrix_iso(&map);
@@ -33,6 +28,7 @@ int	main(int ac, char **av)
 	map.mlx = &mlx;
 	draw_map(&map, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, press_key, &map);
+	mlx_hook(mlx.win, 17, 1L << 17, press_mouse, &map);
 	mlx_loop(mlx.ptr);
 	destroy_mlx(&mlx, &map);
 	free_plan(map.plan);
