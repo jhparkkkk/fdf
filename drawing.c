@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 12:38:46 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 14:06:44 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 {
 	t_bres	br;
 
-	a->color = (int)0xFFFFFF;
-	b->color = (int)0xFF00FF;
 	br.end = *b;
 	br.start = *a;
 	check_movement(mlx, &br.start, &br.end);
@@ -77,7 +75,7 @@ void	draw_line(t_mlx *mlx, t_point *a, t_point *b)
 	find_sign(a, b, &br.sign);
 	while (br.start.x != br.end.x || br.start.y != br.end.y)
 	{
-		put_pix(mlx, br.start.x, br.start.y, find_color(&br, a));
+		put_pix(mlx, br.start.x, br.start.y, br.start.color);
 		br.error_1 = 2 * br.error_0;
 		if (br.error_1 >= br.distance.y)
 		{

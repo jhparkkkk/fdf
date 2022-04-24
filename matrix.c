@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 11:46:55 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/24 14:44:13 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	iso(t_map *map, float *x, float *y, float z)
 	float	prior_y;
 
 	if (map->gap_z)
-		z *= map->gap_z;
+		z *= map->gap_z + map->zoom;
 	prior_x = *x - (map->col * scale_x(map) / 2);
 	prior_y = *y - (map->row * scale_y(map) / 2);
 	*x = round((prior_x - prior_y) * cos(map->angle_x) + WIDTH / 2);
@@ -59,6 +59,7 @@ void	matrix_init(t_map *map)
 			map->trix[i][j].x = find_x(map, j);
 			map->trix[i][j].y = find_y(map, i);
 			map->trix[i][j].z = map->plan[i][j];
+			map->trix[i][j].color = ((map->trix[i][j].z) * 40 + (int)0xFF5733);
 			j++;
 		}
 		i++;
