@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 12:00:25 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:15:53 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_map
 	t_point	**trix;
 	t_mlx	*mlx;
 	int		zoom;
+	int		flag;
 }			t_map;
 
 typedef struct s_bres

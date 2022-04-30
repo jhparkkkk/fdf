@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/25 18:38:35 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:31:55 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,33 @@ void	iso(t_map *map, float *x, float *y, float *z)
     double    previous_y;
 
 	if (map->gap_z)
-		*z *= map->gap_z + map->zoom;
-    *x = round(*x - map->col / 2);
-    *y = round(*y - map->row / 2);
+	{
+		printf("%f\n", *z);
+		*z *= map->gap_z;
+		map->flag = 1;
+	}
+	*x *= 10 + map->zoom;
+	*y *= 10 + map->zoom;
     previous_x = *x;
     previous_y = *y;
-    *x = round((previous_x - previous_y)
-            * cos(map->angle_x) * HEIGHT / round(map->col * 1.5 - map->zoom));
-    *y = round(-(*z * 5) + (previous_x + previous_y)
-            * sin(map->angle_x) * HEIGHT / round(map->col * 1.5 - map->zoom));
-    *z = round(*z);
-    *x = *x + WIDTH / 2;
+    *x = round((previous_x - previous_y) * cos(map->angle_x));
+    *y = round(-(*z) + (previous_x + previous_y) * sin(map->angle_x));
+	//*z = round(*z);
+	*x = *x + WIDTH / 2;
     *y = *y + HEIGHT / 2;
+   
 }
 
-/*void	iso(t_map *map, float *x, float *y, float z)
+void	parallel(t_map *map, float *x, float *y, float *z)
 {
-	float	prior_x;
-	float	prior_y;
-
-	if (map->gap_z)
-		z *= map->gap_z + map->zoom;
-	prior_x = *x - (map->col * scale_x(map) / 2);
-	prior_y = *y - (map->row * scale_x(map) / 2);
-	*x = round((prior_x - prior_y) * cos(map->angle_x) + WIDTH / 2);
-	*y = round(-z + (prior_x + prior_y) * sin(map->angle_x) + HEIGHT / 2);
-}*/
+	(void)z;
+	(void)map;
+	
+	*x *= 10 + map->zoom;
+	*y *= 10 + map->zoom;
+	*x = *x + WIDTH / 2;
+    *y = *y + HEIGHT / 2;
+}
 
 void	matrix_iso(t_map *map)
 {
