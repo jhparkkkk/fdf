@@ -6,16 +6,11 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 07:30:31 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 12:04:46 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include "libft.h"
-
+#include "fdf.h"
 
 void	put_pix(t_mlx *mlx, int x, int y, int color)
 {

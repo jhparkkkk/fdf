@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:03:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 11:56:29 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 12:04:26 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,5 @@ int	main(int ac, char **av)
 	mlx_hook(mlx.win, 2, 1L << 0, press_key, &map);
 	mlx_hook(mlx.win, 17, 1L << 17, press_mouse, &map);
 	mlx_loop(mlx.ptr);
-	destroy_mlx(&mlx, &map);
-	free_plan(map.plan);
-	matrix_destroy(&map);
 	return (0);
 }

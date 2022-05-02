@@ -6,15 +6,12 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 08:08:36 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 11:57:59 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-#include "fdf.h"
-
-// void    iso(t_point *coord, int lines, int map->col)
 void	iso(t_map *map, float *x, float *y, float *z)
 {
     double    previous_x;
