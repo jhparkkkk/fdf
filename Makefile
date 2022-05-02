@@ -8,7 +8,7 @@ RM 			= 	rm -f
 
 INC			=	-I includes -I libft -I mlx_linux 
 
-CFLAGS		=	-Wall -Wextra -Werror -g3
+CFLAGS		=	-Wall -Wextra -Werror
 
 LFLAGS		=	-I./libft -lft -L./libft -I./mlx_linux -L./mlx_linux -I./fdf -L./fdf
 

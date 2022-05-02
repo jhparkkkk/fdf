@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:03:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 12:04:26 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:20:54 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
+	check_extension(av);
 	map_init(&map);
 	read_map(av, &map);
 	matrix_init(&map);

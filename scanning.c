@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 15:20:21 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:53:58 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	column_counter(char const *s, char space, t_map *map)
 			i++;
 	}
 }
-
 
 void	save_map(char *line, t_map *map)
 {

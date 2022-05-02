@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:58:06 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 14:20:14 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:38:51 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ int	press_key(int keycode, t_map *map)
 		set_angle(map->mlx, map, keycode);
 	return (0);
 }
-

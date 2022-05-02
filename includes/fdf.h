@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 10:33:14 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:35:31 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_bres
 }			t_bres;
 
 /*-----------*INIT*------------*/
+void	check_extension(char **av);
 void	map_init(t_map *map);
 int		read_map(char **av, t_map *map);
 int		ft_mlx_init(t_mlx *mlx);
