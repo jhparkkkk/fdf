@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   matrix_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 15:31:10 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 15:33:40 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	matrix_init(t_map *map)
 			map->trix[i][j].x = j;
 			map->trix[i][j].y = i;
 			map->trix[i][j].z = map->plan[i][j] * map->gap_z;
-			map->trix[i][j].color = (int)0xFBBEB1;
+			map->trix[i][j].color = ((map->trix[i][j].z) * 60 + (int)0xFF5234);
 			j++;
 		}
 		i++;
