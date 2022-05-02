@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 23:51:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 14:06:44 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 07:30:31 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,6 @@
 #include <fcntl.h>
 #include "libft.h"
 
-
-int	find_light(float start, float end, float percentage)
-{
-	return((int)((1 - percentage) * start + percentage * end));
-}
-
-float percent(float start, float end, float curr)
-{
-	float placement;
-	float distance;
-
-	placement = curr - start;
-	distance = end - start;
-	if (distance == 0)
-		return (1.0);
-	return (placement / distance);
-}
-int find_color(t_bres *br, t_point *a)
-{
-	int r;
-	int g;
-	int b;
-	float percentage;
-	
-	if (br->start.color == br->end.color)
-		return(br->start.color);
-	if (br->distance.x > br->distance.y)
-		percentage = percent(a->x, br->end.x, br->start.x);
-	else
-		percentage = percent(a->y, br->end.y, br->start.y);
-	r = find_light((a->color >> 16) & 0xFF, (br->end.color >> 16) & 0xFF, percentage);
-	g = find_light((a->color >> 8) & 0xFF, (br->end.color >> 8) & 0xFF, percentage);
-	b = find_light((a->color) & 0xFF, (br->end.color) & 0xFF, percentage);
-	return((r << 16) | (g << 8) | b);
-}
 
 void	put_pix(t_mlx *mlx, int x, int y, int color)
 {

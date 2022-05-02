@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 00:13:04 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 10:42:26 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 09:29:44 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	tab_init(char **av, t_map *map)
 	}
 }
 
-static void	column_counter(char const *s, char c, t_map *map)
+static void	column_counter(char const *s, char space, t_map *map)
 {
 	int	i;
 
@@ -59,13 +59,13 @@ static void	column_counter(char const *s, char c, t_map *map)
 	map->col = -1;
 	while (s[i])
 	{
-		if (s[i] != c)
+		if (s[i] != space)
 		{
 			map->col++;
-			while (s[i] != c && s[i])
+			while (s[i] != space && s[i])
 				i++;
 		}
-		while (s[i] == c && s[i])
+		while (s[i] == space && s[i])
 			i++;
 	}
 }
@@ -90,11 +90,38 @@ void	save_map(char *line, t_map *map)
 		j++;
 		i++;
 	}
+	 if ((int)j - 1 != map->col)                   // error map
+	 	write(2, "error\n", 6);
 	free_data(line_data);
 	if (map->fil == map->row - 1)
 		map->plan[map->fil + 1] = 0;
 	map->plan[map->fil][j] = '\0';
 	map->fil++;
+}
+
+void check_line(t_map *map, char *line)
+{
+	int i;
+	int line_len = ft_strlen(line);
+	i = 0;
+	(void)map;
+	printf("%d\n", line_len);
+	while(i < line_len)
+	{
+		//printf("yes\n");
+		if (line[i] == '-')
+		{
+			if (ft_isdigit(line[i + 1] == 0))
+				write(2, "error sign minus\n", 6);
+		}
+		if (ft_isdigit(line[i]) == 0 && line[i] != ' ' && line[i] != '\n' && line[i] != '-')
+		{
+			printf("oo%coo\n", line[i]);
+			write(2, "error\n", 6);
+			exit(1);
+		}
+		i++;
+	}
 }
 
 int	read_map(char **av, t_map *map)
@@ -113,6 +140,7 @@ int	read_map(char **av, t_map *map)
 		line = get_next_line(fd);
 		if (i == 0)
 			column_counter(line, ' ', map);
+		check_line(map, line);
 		save_map(line, map);
 		free(line);
 		i++;

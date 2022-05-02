@@ -6,9 +6,11 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 10:11:18 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/30 19:31:55 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 08:08:36 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
 
 #include "fdf.h"
 
@@ -18,19 +20,15 @@ void	iso(t_map *map, float *x, float *y, float *z)
     double    previous_x;
     double    previous_y;
 
-	if (map->gap_z)
-	{
-		printf("%f\n", *z);
-		*z *= map->gap_z;
-		map->flag = 1;
-	}
-	*x *= 10 + map->zoom;
-	*y *= 10 + map->zoom;
+	*z *= map->zoom;
+	*x *= map->zoom;
+	*y *= map->zoom;
+	*x *= 10;
+	*y *= 10;
     previous_x = *x;
     previous_y = *y;
     *x = round((previous_x - previous_y) * cos(map->angle_x));
     *y = round(-(*z) + (previous_x + previous_y) * sin(map->angle_x));
-	//*z = round(*z);
 	*x = *x + WIDTH / 2;
     *y = *y + HEIGHT / 2;
    
@@ -80,8 +78,8 @@ void	matrix_init(t_map *map)
 		{
 			map->trix[i][j].x = j;
 			map->trix[i][j].y = i;
-			map->trix[i][j].z = map->plan[i][j];
-			map->trix[i][j].color = ((map->trix[i][j].z) * 40 + (int)0xFF5733);
+			map->trix[i][j].z = map->plan[i][j] * map->gap_z;
+			map->trix[i][j].color = (int)0xFBBEB1;
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 10:39:36 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/30 19:24:22 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 07:47:17 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void    map_init(t_map *map)
 {
     map->angle_x = M_PI / 6;
-    map->gap_z = 0;
-	map->zoom = 1;
-    map->flag = 0;
+    map->gap_z = 1.0;
+	map->zoom = 1.0;
 	map->row = 0;
 	map->col = 0;
     map->fil = 0;

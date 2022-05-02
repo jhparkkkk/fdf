@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/30 19:15:53 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 07:59:33 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define ROTATE_LEFT 97
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define ZOOM_MAX 200
+# define ZOOM_MIN -200
 
 # include <X11/X.h>
 # include <math.h>
@@ -65,13 +67,12 @@ typedef struct s_map
 	int		row;
 	int		col;
 	int		fil;
-	int		gap_z;
+	float	gap_z;
 	float	angle_x;
 	int		**plan;
 	t_point	**trix;
 	t_mlx	*mlx;
-	int		zoom;
-	int		flag;
+	float	zoom;
 }			t_map;
 
 typedef struct s_bres

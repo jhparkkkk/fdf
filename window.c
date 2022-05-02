@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 07:59:59 by jeepark           #+#    #+#             */
-/*   Updated: 2022/04/24 11:31:53 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 08:45:40 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	destroy_mlx(t_mlx *mlx, t_map *map)
 	free_plan(map->plan);
 	matrix_destroy(map);
 }
+
+// void	destroy_map(t_map *map)
+// {
+	
+// }
 
 int	ft_mlx_init(t_mlx *mlx)
 {
