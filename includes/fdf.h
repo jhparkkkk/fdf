@@ -6,7 +6,7 @@
 /*   By: jeepark <jeepark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 22:46:30 by jeepark           #+#    #+#             */
-/*   Updated: 2022/05/02 07:59:33 by jeepark          ###   ########.fr       */
+/*   Updated: 2022/05/02 10:33:14 by jeepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define HEIGHT 1080
 # define MLX_ERROR 1
 # define FD_ERROR -1
+# define MAP_ERROR 2
 # define ESC 65307
 # define GO_LEFT 65361
 # define GO_RIGHT 65363
@@ -93,6 +94,7 @@ int		ft_mlx_init(t_mlx *mlx);
 /*---------*DESTROY*-----------*/
 void	destroy_mlx(t_mlx *mlx, t_map *map);
 void	new_image(t_mlx *mlx, t_map *map, int keycode);
+void	handle_map_error(t_map *map);
 
 /*---------*EVENTS*-----------*/
 int		handle_no_event(void *mlx);
